@@ -282,7 +282,7 @@ public class MetodosConcretos {
 	 * varios menus conectados entre si, que gestionan el mantenimiento de ficheros, los alquileres,
 	 * muestra informes y serializa la empresa cuando se elige la opcion de salir.
 	 */
-	public static void MenuPrincipal()
+	public static void MenuPrincipal(Empresa empresa)
 	{
 		System.out.println("BIENVENIDO");
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -313,7 +313,7 @@ public class MetodosConcretos {
 								do
 								{
 									opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la oficina: ");
-									if(true)//quitar true poner metodo busca.oficina
+									if(empresa.BuscaOficina(opc)!=null)
 									{
 										opciones.clear();
 										opciones.add("MODIFICAR");
@@ -331,7 +331,7 @@ public class MetodosConcretos {
 										{
 											do
 											{
-												//Metodo.Borra.Oficina			
+												empresa.BorraOficina(opc);			
 											}
 											while (interfazusuario.MenuSioNo("¿Desea borrar otra oficina?")==1);
 										}
@@ -340,7 +340,7 @@ public class MetodosConcretos {
 									{
 										do
 										{
-											//Metodo.Añade.Oficina			
+											empresa.AñadeOficina();			
 										}
 										while (interfazusuario.MenuSioNo("¿Desea añadir otra oficina?")==1);
 									}
@@ -353,7 +353,7 @@ public class MetodosConcretos {
 								do
 								{
 									opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la categoria: ");
-									if(true)//cambiar true por metodo.busca categoria
+									if(empresa.BuscaCategoria(opc)!=null)
 									{
 										opciones.clear();
 										opciones.add("MODIFICAR");
@@ -371,7 +371,7 @@ public class MetodosConcretos {
 										{
 											do
 											{
-												//Metodo.Borra.Categoria			
+												empresa.BorraCategoria(opc);			
 											}
 											while (interfazusuario.MenuSioNo("¿Desea borrar otra categoria?")==1);
 										}
@@ -380,7 +380,7 @@ public class MetodosConcretos {
 									{
 										do
 										{
-											//Metodo.Añade.categoria			
+											empresa.AñadeCategoria();			
 										}
 										while (interfazusuario.MenuSioNo("¿Desea añadir otra categoria?")==1);
 									}
@@ -393,7 +393,7 @@ public class MetodosConcretos {
 								do
 								{
 									opc=interfazusuario.PideDniValidad();
-									if(true)//cambiar true por metodo bucaempleado
+									if(empresa.BuscaEmpleado(opc)!=null)
 									{
 										opciones.clear();
 										opciones.add("MODIFICAR");
@@ -411,7 +411,7 @@ public class MetodosConcretos {
 										{
 											do
 											{
-												//Metodo.Borra.Empleado			
+												empresa.BorraEmpleado(opc);		
 											}
 											while (interfazusuario.MenuSioNo("¿Desea borrar otro empleado?")==1);
 										}
@@ -420,7 +420,7 @@ public class MetodosConcretos {
 									{
 										do
 										{
-											//Metodo.Añade.Empleado			
+											empresa.AñadeEmpleado();		
 										}
 										while (interfazusuario.MenuSioNo("¿Desea dar de alta otro empleado?")==1);
 									}
@@ -433,7 +433,7 @@ public class MetodosConcretos {
 								do
 								{
 									opc=interfazusuario.PideCadenaValidada(7,"Introduzca la matricula: ");
-									if(true)//cambiar true por metodo busca vehiculo
+									if(empresa.BuscaVehiculo(opc)!=null)
 									{
 										opciones.clear();
 										opciones.add("MODIFICAR");
@@ -451,7 +451,7 @@ public class MetodosConcretos {
 										{
 											do
 											{
-												//Metodo.Borra.Vehiculo			
+												empresa.BorraVehiculo(opc);		
 											}
 											while (interfazusuario.MenuSioNo("¿Desea borrar otro vehiculo?")==1);
 										}
@@ -460,7 +460,7 @@ public class MetodosConcretos {
 									{
 										do
 										{
-											//Metodo.Añade.Vehiculo			
+											empresa.AñadeVehiculo();	
 										}
 										while (interfazusuario.MenuSioNo("¿Desea añadir otro vehiculo?")==1);
 									}
@@ -506,7 +506,7 @@ public class MetodosConcretos {
 					}
 					break;
 				case 4:
-					//Empresa.grabaEmpresa(empresa);
+					Empresa.grabaEmpresa(empresa);
 					break;
 			}
 		}

@@ -88,7 +88,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	 * Si el dni es el mismo, las personas son la misma.
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -117,7 +118,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	/**Un valida dni en el setter para darle mayor seguridad.
 	 * @param dni the dni to set
 	 */
-	private void setDni(String dni) throws DniNoValidoException {
+	private void setDni(String dni) throws DniNoValidoException 
+	{
 		if (Validadores.Comprueba_dni(dni))
 		{
 			this.dni = dni;
@@ -137,7 +139,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	/**
 	 * @param nombre the nombre to set
 	 */
-	public void setNombre(String nombre) throws LongitudNoValidaException {
+	public void setNombre(String nombre) throws LongitudNoValidaException 
+	{
 		if (nombre.length()<=longinomb)
 		{	
 			this.nombre = nombre;
@@ -156,7 +159,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	/**
 	 * @param ap1 the ap1 to set
 	 */
-	public void setAp1(String ap1) throws LongitudNoValidaException {
+	public void setAp1(String ap1) throws LongitudNoValidaException
+	{
 		if (ap1.length()<=longiap1)
 		{	
 			this.ap1 = ap1;
@@ -175,7 +179,8 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	/**
 	 * @param ap2 the ap2 to set
 	 */
-	public void setAp2(String ap2) throws LongitudNoValidaException {
+	public void setAp2(String ap2) throws LongitudNoValidaException 
+	{
 		if (ap2.length()<=longiap2)
 		{	
 			this.ap2 = ap2;

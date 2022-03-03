@@ -35,6 +35,7 @@ public class Empresa implements Serializable {
 	public Empresa(String nif,String nombre)throws LongitudNoValidaException {
 		this.setNif(nif);
 		this.setNombre(nombre);
+		inicializaempresa();
 	}
 	
 	/**
@@ -73,6 +74,16 @@ public class Empresa implements Serializable {
 	
 	//TODO METODOS}
 	
+	private void inicializaempresa()
+	{
+		listaoficinas=new TreeMap <String, Oficina>();
+		listaclientes=new TreeMap <String, Cliente>();
+		plantilla=new TreeMap <String, Empleado>();
+		listavehiculos=new TreeMap <String, Vehiculo>();
+		tiposdecarnet=new TreeMap<String, Carnet>();
+		listacategorias=new TreeMap<String, Categoria>();
+	}
+	
 	public static void grabaEmpresa(Empresa empresa)
 	{
 		FileOutputStream f=null;
@@ -102,12 +113,12 @@ public class Empresa implements Serializable {
 	public static Empresa leeEmpresa() throws IOException
 	{
 		Empresa empresa=null;
-		FileInputStream file = new FileInputStream("empresa.ser");
 		File f=new File ("empresa.ser");
-		ObjectInputStream input = new ObjectInputStream (file);
 		if (f.exists())
 		{
 		try {
+			FileInputStream file = new FileInputStream("empresa.ser");
+			ObjectInputStream input = new ObjectInputStream (file);
 			empresa=(Empresa)input.readObject();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-genera");
@@ -120,6 +131,8 @@ public class Empresa implements Serializable {
 		else
 		{
 			empresa=MetodosConcretos.PideDatosEmpresa();
+			grabaEmpresa(empresa);
+			
 		}
 	
 		return empresa;
@@ -131,7 +144,8 @@ public class Empresa implements Serializable {
 	 * @param dni
 	 * @return Un objeto empleado
 	 */
-	public  Empleado BuscaEmpleado(String dni) {
+	public  Empleado BuscaEmpleado(String dni) 
+	{
 		return plantilla.get(dni);
 	}
 	/**
@@ -140,7 +154,8 @@ public class Empresa implements Serializable {
 	 * @param dni
 	 * @return Un objeto cliente
 	 */
-	public  Cliente BuscaCliente(String dni) {
+	public  Cliente BuscaCliente(String dni) 
+	{
 		return listaclientes.get(dni); 
 	}
 	/**
@@ -149,7 +164,8 @@ public class Empresa implements Serializable {
 	 * @param matricula
 	 * @return Un objeto vehiculo
 	 */
-	public Vehiculo BuscaVehiculo(String matricula) {
+	public Vehiculo BuscaVehiculo(String matricula) 
+	{
 		return listavehiculos.get(matricula);
 	}
 	/**
@@ -158,7 +174,8 @@ public class Empresa implements Serializable {
 	 * @param codigoofi
 	 * @return Un objeto oficina
 	 */
-	public Oficina BuscaOficina(String codigoofi) {
+	public Oficina BuscaOficina(String codigoofi) 
+	{
 		return listaoficinas.get(codigoofi);
 	}
 	/**
@@ -167,14 +184,26 @@ public class Empresa implements Serializable {
 	 * @param tipo
 	 * @return Un objeto carnet
 	 */
-	public Carnet BuscaCarnet(String tipo) {
+	public Carnet BuscaCarnet(String tipo) 
+	{
 		return tiposdecarnet.get(tipo);
+	}
+	/**
+	 * Metodo que se encarga de buscar un carnet en el TreeMap de tiposdecarnet pasandole 
+	 * como clave el tipo
+	 * @param tipo
+	 * @return Un objeto carnet
+	 */
+	public Categoria BuscaCategoria(String codcategoria) 
+	{
+		return listacategorias.get(codcategoria);
 	}
 	/**
 	 * Metodo que se encarga de llamar al metodo PideDatosCliente para introducir los datos
 	 * en un objeto de tipo cliente y éste introducirlo en el TreeMap de listaclientes.
 	 */
-	public void AñadeCliente() {
+	public void AñadeCliente() 
+	{
 		Cliente c=MetodosConcretos.PideDatosCliente();
 		listaclientes.put(c.getDni(), c);
 	}
@@ -182,7 +211,8 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosEmpleado para introducir los datos
 	 * en un objeto de tipo empleado y éste introducirlo en el TreeMap de plantilla.
 	 */
-	public void AñadeEmpleado() {
+	public void AñadeEmpleado() 
+	{
 		Empleado e=MetodosConcretos.PideDatosEmpleado();
 		plantilla.put(e.getDni(), e);
 	}
@@ -190,7 +220,8 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosCategoria para introducir los datos
 	 * en un objeto de tipo categoria y éste introducirlo en el TreeMap de listacategorias.
 	 */
-	public void AñadeCategoria() {
+	public void AñadeCategoria() 
+	{
 		Categoria cat=MetodosConcretos.PideDatosCategoria();
 		listacategorias.put(cat.getCodcategoria(), cat);
 	}
@@ -201,19 +232,74 @@ public class Empresa implements Serializable {
 	 * @param tipo
 	 * @param descripcion
 	 */
-	public void AñadeCarnet(String tipo,String descripcion) {
+	public void AñadeCarnet(String tipo,String descripcion) 
+	{
 		Carnet carnet=new Carnet(tipo,descripcion);
 		tiposdecarnet.put(carnet.getTipo(), carnet);
+	}
+	/**
+	 * Metodo que se encarga de crear un objeto de tipo vehiculo, para introducir este
+	 * objeto en el TreeMap de tiposdecarnet.
+	 * @param tipo
+	 * @param descripcion
+	 */
+	public void AñadeVehiculo() 
+	{
+		Vehiculo vehiculo=MetodosConcretos.PideDatosVehiculo();
+		listavehiculos.put(vehiculo.getMatricula(), vehiculo);
 	}
 	/**
 	 * Metodo que se encarga de llamar al metodo PideDatosOficina para introducirlos datos
 	 * en un objeto de tipo oficina y éste introducirlo en el TreeMap de listaoficinas.
 	 */
-	public void AñadeOficina() {
+	public void AñadeOficina() 
+	{
 		Oficina o=MetodosConcretos.PideDatosOficina();
 		listaoficinas.put(o.getCodigoofi(), o);
 	}
-	
+	/**
+	 * Método que borra un Cliente de la lista de clientes, pasándole su clave principal.
+	 */
+	public void BorraCliente(String dni) 
+	{
+		listaclientes.remove(dni);
+	}
+	/**
+	 * Método que borra un Empleado de la plantilla, pasándole su clave principal.
+	 */
+	public void BorraEmpleado(String dni) 
+	{
+		plantilla.remove(dni);
+	}
+	/**
+	 * Método que borra una Categoria de la lista de categorias, pasándole su clave principal.
+	 */
+	public void BorraCategoria(String codcategoria) 
+	{
+		listacategorias.remove(codcategoria);
+	}
+	/**
+	 * Método que borra un Carnet de la lista de tripos de carnet, pasándole su clave principal.
+	 */
+	public void BorraCarnet(String tipo) 
+	{
+		tiposdecarnet.remove(tipo);
+	}
+	/**
+	 * Método que borra una Oficina de la lista de oficinas, pasándole su clave principal.
+	 */
+	public void BorraOficina(String codigoofi) 
+	{
+		listaoficinas.remove(codigoofi);
+	}
+	/**
+	 * Método que borra un vehiculo de la lista de vehiculos, pasándole su clave principal.
+	 * @param matricula
+	 */
+	public void BorraVehiculo(String matricula)
+	{
+		listavehiculos.remove(matricula);
+	}
 	
 	
 	//GETTERS Y SETTERS

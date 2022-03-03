@@ -11,12 +11,8 @@ public class Principal {
 
 	public static void main(String[] args) throws IOException {
 		
-		Empresa.leeEmpresa();
-		
-		MetodosConcretos.MenuPrincipal();
-		
-		
-	
+		Empresa empresa=Empresa.leeEmpresa();
+		MetodosConcretos.MenuPrincipal(empresa);
 	}
 
 }
