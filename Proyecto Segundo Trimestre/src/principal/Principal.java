@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import clasesinstanciables.*;
 import excepciones.LongitudNoValidaException;
+import menus.Menus;
 import metodosinterfazusuario.*;
 
 public class Principal {
@@ -12,7 +13,9 @@ public class Principal {
 	public static void main(String[] args) throws IOException {
 		
 		Empresa empresa=Empresa.leeEmpresa();
-		MetodosConcretos.MenuPrincipal(empresa);
+		Menus.MenuPrincipal(empresa);
+		//quitarlo despues
+		System.out.println(empresa.getNif()+empresa.getNombre());
 	}
 
 }

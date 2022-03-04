@@ -18,6 +18,7 @@ public class Empresa implements Serializable {
 
 	
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716111L;
 	private String nif;
 	private String nombre;
 	private TreeMap <String, Oficina> listaoficinas=new TreeMap <String, Oficina>();
@@ -116,7 +117,8 @@ public class Empresa implements Serializable {
 		File f=new File ("empresa.ser");
 		if (f.exists())
 		{
-		try {
+		try
+		{
 			FileInputStream file = new FileInputStream("empresa.ser");
 			ObjectInputStream input = new ObjectInputStream (file);
 			empresa=(Empresa)input.readObject();
@@ -202,18 +204,18 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosCliente para introducir los datos
 	 * en un objeto de tipo cliente y éste introducirlo en el TreeMap de listaclientes.
 	 */
-	public void AñadeCliente() 
+	public void AñadeCliente(Empresa empresa) 
 	{
-		Cliente c=MetodosConcretos.PideDatosCliente();
+		Cliente c=MetodosConcretos.PideDatosCliente(empresa);
 		listaclientes.put(c.getDni(), c);
 	}
 	/**
 	 * Metodo que se encarga de llamar al metodo PideDatosEmpleado para introducir los datos
 	 * en un objeto de tipo empleado y éste introducirlo en el TreeMap de plantilla.
 	 */
-	public void AñadeEmpleado() 
+	public void AñadeEmpleado(Empresa empresa) 
 	{
-		Empleado e=MetodosConcretos.PideDatosEmpleado();
+		Empleado e=MetodosConcretos.PideDatosEmpleado(empresa);
 		plantilla.put(e.getDni(), e);
 	}
 	/**
@@ -232,9 +234,9 @@ public class Empresa implements Serializable {
 	 * @param tipo
 	 * @param descripcion
 	 */
-	public void AñadeCarnet(String tipo,String descripcion) 
+	public void AñadeCarnet() 
 	{
-		Carnet carnet=new Carnet(tipo,descripcion);
+		Carnet carnet=MetodosConcretos.PideDatosCarnet();
 		tiposdecarnet.put(carnet.getTipo(), carnet);
 	}
 	/**
@@ -243,9 +245,9 @@ public class Empresa implements Serializable {
 	 * @param tipo
 	 * @param descripcion
 	 */
-	public void AñadeVehiculo() 
+	public void AñadeVehiculo(Empresa empresa) 
 	{
-		Vehiculo vehiculo=MetodosConcretos.PideDatosVehiculo();
+		Vehiculo vehiculo=MetodosConcretos.PideDatosVehiculo(empresa);
 		listavehiculos.put(vehiculo.getMatricula(), vehiculo);
 	}
 	/**

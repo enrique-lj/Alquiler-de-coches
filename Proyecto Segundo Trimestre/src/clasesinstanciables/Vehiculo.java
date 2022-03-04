@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
+	private static final long serialVersionUID = 8799656478674716777L;
 	private String nbastidor;
 	private String matricula;
 	private String marca;
@@ -122,6 +123,13 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		return Objects.equals(nbastidor, other.nbastidor);
 	}
 	
+	/**
+	 * Metodo toString que junta la matricula, el numero de bastidor, la marca, el modelo, el color y los kilometros.
+	 */
+	public String toString()
+	{
+		return matricula+" - "+nbastidor+" - "+marca+" - "+" - "+modelo+" - "+color+" - "+kms+"kms - ";
+	}
 	
 	//GETTERS Y SETTERS
 	

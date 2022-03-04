@@ -9,6 +9,7 @@ import excepciones.ValorNoValidoException;
 
 public class Cocheelectrico extends Electrico implements Serializable{
 	//PARAMETROS
+	private static final long serialVersionUID = 8799656478674716633L;
 	private int nplazas;
 	private String tipo;
 	private int longinplazas=9;
@@ -51,6 +52,13 @@ public class Cocheelectrico extends Electrico implements Serializable{
 		}
 	
 	//TODO METODOS
+	/**
+	 * Metodo toString que junta la matricula, el numero de bastidor, la marca, el modelo, el color y los kilometros.
+	 */
+	public String toString()
+	{
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche electrico.";
+	}
 	
 	//GETTERS Y SETTERS
 	/**

@@ -9,6 +9,7 @@ import excepciones.ValorNoValidoException;
 
 public abstract class Electrico extends Vehiculo implements Serializable{
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716631L;
 	private int autonomia;
 	private int tiempocarga;
 	private int longiautonomia=600;

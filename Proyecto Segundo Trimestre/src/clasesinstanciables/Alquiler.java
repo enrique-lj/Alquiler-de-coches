@@ -4,6 +4,7 @@ import java.io.Serializable;
 public class Alquiler implements Serializable{
 
 	//PROPIEDADES 
+	private static final long serialVersionUID = 8799656478674716638L;
 	private Vehiculo _vehiculo;
 	private Empleado _empleado;
 	private Cliente _cliente;

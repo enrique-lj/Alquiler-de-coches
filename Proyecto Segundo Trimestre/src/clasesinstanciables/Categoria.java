@@ -5,6 +5,7 @@ import excepciones.LongitudNoValidaException;
 public class Categoria implements Serializable{
 
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716636L;
 	private String codcategoria;
 	private String descripcion;
 	private int recargoalquileres;
@@ -44,6 +45,12 @@ public class Categoria implements Serializable{
 	}
 	
 	//TODO METODOS
+	
+	@Override
+	public String toString()
+	{
+		return codcategoria+" - "+descripcion+" - Con un recargo del "+recargoalquileres+"%.";
+	}
 	
 	//GETTERS Y SETTERS 
 	/**

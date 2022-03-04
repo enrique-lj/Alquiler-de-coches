@@ -10,6 +10,7 @@ import excepciones.ValorNoValidoException;
 public class Furgoneta extends Combustion implements Serializable {
 
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716222L;
 	private double capacidad;
 	private Carnet carnetrequerido;
 	private double longicapacidad=10.0;
@@ -51,7 +52,13 @@ public class Furgoneta extends Combustion implements Serializable {
 	}
 	
 	//TODO METODOS
-	
+	/**
+	 * Metodo toString que junta la matricula, el numero de bastidor, la marca, el modelo, el color y los kilometros.
+	 */
+	public String toString()
+	{
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+capacidad+"m3 - Carnet("+carnetrequerido.getTipo()+") - Furgoneta.";
+	}
 	
 	//GETTERS Y SETTERS
 	/**

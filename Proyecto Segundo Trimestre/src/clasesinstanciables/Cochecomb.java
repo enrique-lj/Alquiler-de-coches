@@ -11,6 +11,7 @@ import excepciones.ValorNoValidoException;
 public class Cochecomb extends Combustion implements Serializable {
 
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716634L;
 	private int nplazas;
 	private String tipo;
 	private int longinplazas=9;
@@ -52,6 +53,13 @@ public class Cochecomb extends Combustion implements Serializable {
 		this.setTipo(ccomb.getTipo());
 	}
 	//TODO METODOS
+	/**
+	 * Metodo toString que junta la matricula, el numero de bastidor, la marca, el modelo, el color y los kilometros.
+	 */
+	public String toString()
+	{
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche combustión.";
+	}
 	
 	//GETTERS Y SETTERS
 	/**

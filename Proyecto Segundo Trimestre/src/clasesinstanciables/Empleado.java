@@ -7,6 +7,7 @@ import excepciones.LongitudNoValidaException;
 public class Empleado extends Persona implements Serializable {
 	
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716639L;
 	private GregorianCalendar faltaempresa;
 	private Oficina ofitrabajador;
 	
@@ -47,6 +48,11 @@ public class Empleado extends Persona implements Serializable {
 	}
 	
 	//TODO METODOS
+	@Override
+	public String toString()
+	{
+		return getDni()+" - "+NombreCompleto()+". Oficina: "+ofitrabajador.getCodigoofi()+", "+ofitrabajador.getLocalidad()+", "+ofitrabajador.getProvincia();
+	}
 	
 	//GETTERS Y SETTERS
 	/**

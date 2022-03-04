@@ -7,6 +7,7 @@ import excepciones.ValorNoValidoException;
 public class Cliente extends Persona implements Serializable {
 	
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716635L;
 	private Carnet tipocarnet;//he cambiado el tipo de Carnet a String, si no vale volver a cambiarlo.
 	private int ntarjetacliente;
 	private int longintarjeta=100000;
@@ -39,7 +40,16 @@ public class Cliente extends Persona implements Serializable {
 	}
 	
 	//TODO METODOS
-	
+	/*
+	@Override
+	public String toString()
+	{
+		return ;
+	}*/
+	public String toString()
+	{
+		return getDni()+" - "+NombreCompleto()+", con carnet "+tipocarnet.getTipo();
+	}
 	
 	//GETTERS Y SETTERS
 	/**

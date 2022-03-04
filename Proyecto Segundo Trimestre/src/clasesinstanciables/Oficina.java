@@ -7,6 +7,7 @@ import excepciones.LongitudNoValidaException;
 public class Oficina implements Serializable {
 
 	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716444L;
 	private String codigoofi;
 	private String descripcion;
 	private String localidad;
@@ -108,6 +109,11 @@ public class Oficina implements Serializable {
 	
 	
 	//TODO METODOS
+	@Override
+	public String toString()
+	{
+		return codigoofi+"; "+descripcion+"; "+localidad+"; "+provincia+".";
+	}
 
 	//GETTERS Y SETTERS
 	/**

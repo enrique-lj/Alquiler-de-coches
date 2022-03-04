@@ -5,7 +5,8 @@ import java.util.Objects ;
 
 public class Carnet implements Serializable {
 	
-	//PROPIEDADES 
+	//PROPIEDADES
+	private static final long serialVersionUID = 8799656478674716637L;
 	private String tipo;
 	private String descripcion;
 	private int longitipo =3;
@@ -48,6 +49,11 @@ public class Carnet implements Serializable {
 			return false;
 		Carnet other = (Carnet) obj;
 		return Objects.equals(tipo, other.tipo);
+	}
+	@Override
+	public String toString()
+	{
+		return "Tipo: "+tipo+". "+descripcion;
 	}
 	
 	//GETTERS Y SETTERS

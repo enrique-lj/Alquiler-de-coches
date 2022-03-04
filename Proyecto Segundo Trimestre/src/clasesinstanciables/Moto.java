@@ -10,6 +10,7 @@ import excepciones.ValorNoValidoException;
 public class Moto extends Electrico  implements Serializable {
 
 	//PARAMETROS
+	private static final long serialVersionUID = 8799656478674716333L;
 	private int cilindrada;
 	private Carnet carnetrequerido;
 	private int longicilindrada=3000;
@@ -49,7 +50,15 @@ public class Moto extends Electrico  implements Serializable {
 		}
 	
 	//TODO METODOS
-
+	/**
+	 * Metodo toString que junta la matricula, el numero de bastidor, la marca, el modelo, el color y los kilometros.
+	 */
+	public String toString()
+	{
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+cilindrada+"cm3 - Carnet("+carnetrequerido.getTipo()+") - Moto.";
+	}
+	
+	
 	//GETTERS Y SETTERS
 	/**
 	 * @return the cilindrada

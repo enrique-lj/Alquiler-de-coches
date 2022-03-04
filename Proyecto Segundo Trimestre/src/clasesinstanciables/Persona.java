@@ -10,6 +10,7 @@ import mismetodosgenerales.*;
 public abstract class Persona implements Comparable<Persona>, Serializable{
 
 	//PROPIEDADES 
+	private static final long serialVersionUID = 8799656478674716555L;
 	private String dni;
 	private String nombre;
 	private String ap1;

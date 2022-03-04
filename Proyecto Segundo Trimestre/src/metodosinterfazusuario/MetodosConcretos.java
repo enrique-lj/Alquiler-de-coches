@@ -2,29 +2,39 @@ package metodosinterfazusuario;
 import mismetodosgenerales.*;
 import clasesinstanciables.*;
 import excepciones.*;
-
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.Scanner;
+import java.util.Map.Entry;
 public class MetodosConcretos {
 	/**
 	 * Metodo que se encarga de pedir los datos de un cliente y crear un objeto de tipo
 	 * cliente con esos datos.
 	 * @return Devuelve un objeto de tipo cliente
 	 */
-	public static Cliente PideDatosCliente()
+	public static Cliente PideDatosCliente(Empresa empresa)
 	{
 		Cliente _cliente =null;
+		Carnet _carnet=null;
+		String _opccarnet=null;
 		String _dni=interfazusuario.PideDniValidad();
 		String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
 		String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
 		String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
-		/*opccarnet es el tipo de carnet que tiene el cliente, el cual luego se introducirá en el
-		 * TreeMap, para ver si hay un objeto Carnet con el mismo tipo. Si lo hay, lo saca y lo
-		 * introduce en la variable _carnet.
-		*/
-		String _opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
-		//Metodo.BuscaCarnet(_opccarnet)
-		Carnet _carnet=null;
+		do
+		{
+			_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
+			if (empresa.BuscaCarnet(_opccarnet)!=null)
+			{
+				 _carnet=empresa.BuscaCarnet(_opccarnet);
+			}
+			else
+			{
+				System.out.println("Tipo de carnet no valido.");
+			}
+		} 
+		while (empresa.BuscaCarnet(_opccarnet)==null);
+		 
 		try 
 		{
 			_cliente=new Cliente(_dni,_nombre,_ap1,_ap2,_carnet);
@@ -106,15 +116,29 @@ public class MetodosConcretos {
 	 * e introduce los datos pedidos.
 	 * @return Devuelve el objeto empleado.
 	 */
-	public static Empleado PideDatosEmpleado()
+	public static Empleado PideDatosEmpleado(Empresa empresa)
 	{
 		Empleado _empleado=null;
+		String _opcofi=null;
+		Oficina _oficina=null;
 		String _dni=interfazusuario.PideDniValidad();
 		String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
 		String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
 		String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
 		GregorianCalendar _faltaempresa=interfazusuario.PideFechaValidada("Introduzca la fecha de alta en la empresa: ");
-		Oficina _oficina=PideDatosOficina();
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
 		try
 		{
 		_empleado=new Empleado(_dni,_nombre,_ap1,_ap2,_faltaempresa,_oficina);
@@ -137,7 +161,7 @@ public class MetodosConcretos {
 	 * hace lo mismo, pero con los datos referentes a furgoneta y coche de combustión.
 	 * @return Devuelve un objeto de tipo vehiculo
 	 */
-	public static Vehiculo PideDatosVehiculo()
+	public static Vehiculo PideDatosVehiculo(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
@@ -151,13 +175,42 @@ public class MetodosConcretos {
 		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
 		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
 		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
-		Categoria _categoria=PideDatosCategoria();
-		Oficina _oficina=PideDatosOficina();
+		Categoria _categoria=null;
+		String _opccat;
+		do
+		{
+			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
+			if (empresa.BuscaCategoria(_opccat)!=null)
+			{
+				 _categoria=empresa.BuscaCategoria(_opccat);
+			}
+			else
+			{
+				System.out.println("Categoria no existente.");
+			}
+		} 
+		while (empresa.BuscaCategoria(_opccat)==null);
+		String _opcofi=null;
+		Oficina _oficina=null;
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
 		int _autonomia;
 		int _tiempodecarga;
 		int _nplazas;
 		String _tipo;
-		Carnet _carnetrequerido;
+		Carnet _carnetrequerido=null;
+		String _opccarnet=null;
 		int _consumo;
 		int _potencia;
 		int _cilindrada;
@@ -193,7 +246,19 @@ public class MetodosConcretos {
 			else
 			{
 				_cilindrada=interfazusuario.PideNumeroValidado(1, 3000, "Cilindrada: ");
-				_carnetrequerido=null;
+				do
+				{
+					_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
+					if (empresa.BuscaCarnet(_opccarnet)!=null)
+					{
+						 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
+					}
+					else
+					{
+						System.out.println("Tipo de carnet no valido.");
+					}
+				} 
+				while (empresa.BuscaCarnet(_opccarnet)==null);
 				try
 				{
 				_vehiculo=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
@@ -239,7 +304,19 @@ public class MetodosConcretos {
 			else
 			{
 				double _capacidad=interfazusuario.PideNumeroValidadoDouble(1.00, 10.00, "Capacidad: ");
-				_carnetrequerido=null;
+				do
+				{
+					_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
+					if (empresa.BuscaCarnet(_opccarnet)!=null)
+					{
+						 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
+					}
+					else
+					{
+						System.out.println("Tipo de carnet no valido.");
+					}
+				} 
+				while (empresa.BuscaCarnet(_opccarnet)==null);
 				try
 				{
 				_vehiculo=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
@@ -277,239 +354,67 @@ public class MetodosConcretos {
 		return empresa;
 	}
 	
-	/**
-	 * Menu principal del programa el cual va a dictar el flujo de nuestro programa. Se compone de
-	 * varios menus conectados entre si, que gestionan el mantenimiento de ficheros, los alquileres,
-	 * muestra informes y serializa la empresa cuando se elige la opcion de salir.
-	 */
-	public static void MenuPrincipal(Empresa empresa)
+	public static Carnet PideDatosCarnet()
 	{
-		System.out.println("BIENVENIDO");
-		ArrayList<String>opciones=new ArrayList<String>();
-		int opcion;
-		String opc;
-		do 
-		{
-			opciones.clear();
-			opciones.add("MANTENIMIENTO DE FICHEROS MAESTROS");
-			opciones.add("ALQUILERES");
-			opciones.add("MOSTRAR INFORMES");
-			opciones.add("SALIR");
-			opcion=interfazusuario.MenuInt("CONFIGURACIÓN", opciones, 1, 4);
-			switch (opcion) {
-				case 1:
-					do 
-					{
-						opciones.clear();
-						opciones.add("OFICINA");
-						opciones.add("CATEGORIA");
-						opciones.add("EMPLEADO");
-						opciones.add("VEHICULO");
-						opciones.add("VOLVER");
-						opcion=interfazusuario.MenuInt("ELIJA UNA OPCION", opciones, 1, 5);
-						switch (opcion)
-						{
-							case 1:
-								do
-								{
-									opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la oficina: ");
-									if(empresa.BuscaOficina(opc)!=null)
-									{
-										opciones.clear();
-										opciones.add("MODIFICAR");
-										opciones.add("BORRAR");
-										opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-										if (opcion==1)
-										{
-											do
-											{
-												//Metodo.Modifica.Oficina			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea modificar otra oficina?")==1);
-										}
-										else
-										{
-											do
-											{
-												empresa.BorraOficina(opc);			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea borrar otra oficina?")==1);
-										}
-									}
-									else
-									{
-										do
-										{
-											empresa.AñadeOficina();			
-										}
-										while (interfazusuario.MenuSioNo("¿Desea añadir otra oficina?")==1);
-									}
-									
-								}
-								while (interfazusuario.MenuSioNo("¿Desea buscar otra oficina?")==1);
-								opcion=0;
-								break;
-							case 2:
-								do
-								{
-									opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la categoria: ");
-									if(empresa.BuscaCategoria(opc)!=null)
-									{
-										opciones.clear();
-										opciones.add("MODIFICAR");
-										opciones.add("BORRAR");
-										opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-										if (opcion==1)
-										{
-											do
-											{
-												//Metodo.Modifica.Categoria			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea modificar otra categoria?")==1);
-										}
-										else
-										{
-											do
-											{
-												empresa.BorraCategoria(opc);			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea borrar otra categoria?")==1);
-										}
-									}
-									else
-									{
-										do
-										{
-											empresa.AñadeCategoria();			
-										}
-										while (interfazusuario.MenuSioNo("¿Desea añadir otra categoria?")==1);
-									}
-									
-								}
-								while (interfazusuario.MenuSioNo("¿Desea buscar otra categoria?")==1);
-								opcion=0;
-								break;
-							case 3:
-								do
-								{
-									opc=interfazusuario.PideDniValidad();
-									if(empresa.BuscaEmpleado(opc)!=null)
-									{
-										opciones.clear();
-										opciones.add("MODIFICAR");
-										opciones.add("BORRAR");
-										opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-										if (opcion==1)
-										{
-											do
-											{
-												//Metodo.Modifica.Empleado			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea modificar otro empleado?")==1);
-										}
-										else
-										{
-											do
-											{
-												empresa.BorraEmpleado(opc);		
-											}
-											while (interfazusuario.MenuSioNo("¿Desea borrar otro empleado?")==1);
-										}
-									}
-									else
-									{
-										do
-										{
-											empresa.AñadeEmpleado();		
-										}
-										while (interfazusuario.MenuSioNo("¿Desea dar de alta otro empleado?")==1);
-									}
-									
-								}
-								while (interfazusuario.MenuSioNo("¿Desea buscar otro empleado?")==1);
-								opcion=0;
-								break;
-							case 4:
-								do
-								{
-									opc=interfazusuario.PideCadenaValidada(7,"Introduzca la matricula: ");
-									if(empresa.BuscaVehiculo(opc)!=null)
-									{
-										opciones.clear();
-										opciones.add("MODIFICAR");
-										opciones.add("BORRAR");
-										opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-										if (opcion==1)
-										{
-											do
-											{
-												//Metodo.Modifica.Vehiculo			
-											}
-											while (interfazusuario.MenuSioNo("¿Desea modificar otro vehiculo?")==1);
-										}
-										else
-										{
-											do
-											{
-												empresa.BorraVehiculo(opc);		
-											}
-											while (interfazusuario.MenuSioNo("¿Desea borrar otro vehiculo?")==1);
-										}
-									}
-									else
-									{
-										do
-										{
-											empresa.AñadeVehiculo();	
-										}
-										while (interfazusuario.MenuSioNo("¿Desea añadir otro vehiculo?")==1);
-									}
-									
-								}
-								while (interfazusuario.MenuSioNo("¿Desea buscar otro vehiculo?")==1);
-								opcion=0;
-								break;
-						}
-					}
-					while (opcion!=5);
-					break;
-				case 2:
-					opciones.clear();
-					opciones.add("ALQUILAR");
-					opciones.add("DEVOLVER");
-					opcion=interfazusuario.MenuInt("OPCIONES", opciones, 1, 2);
-					if (opcion==1)
-					{
-						//TODO METODO.ALQUILER
-					}
-					else 
-					{
-						//TODO METODO.DEVOLUCION
-					}
-					break;
-				case 3:
-					opciones.clear();
-					opciones.add("ALQUILERES REALIZADOS SEGUN FECHA");
-					opciones.add("ALQUILERES REALIZADOS SEGUN VEHICULO");
-					opciones.add("LISTADO DE STOCK");
-					opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 3);
-					switch (opcion) {
-					case 1:
-						//TODO METODO.MUESTRA_SEGUN_FECHA
-						break;
-					case 2:
-						//TODO METODO.MUESTRA_SEGUN_VEHICULO
-						break;
-					case 3:
-						//TODO METODO.MUESTRA_LISTADO_STOCK	
-						break;
-					}
-					break;
-				case 4:
-					Empresa.grabaEmpresa(empresa);
-					break;
-			}
-		}
-		while(opcion!=4);
+		Carnet carnet=null;
+		String _tipo;
+		String _descripcion;
+		_tipo=interfazusuario.PideCadenaValidada(3, "Introduzca el tipo de carnet: ");
+		_descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripción: ");
+		carnet=new Carnet(_tipo,_descripcion);
+		return carnet;
+		
 	}
+	
+	public static void MostrarPlantilla(Empresa empresa)
+	{
+		for(Entry<String, Empleado> item:empresa.getPlantilla().entrySet())
+		{
+			String dni= item.getKey();
+			Empleado empleado=item.getValue();
+			System.out.println(empleado);
+		}
+	}
+	
+	public static void MostrarTiposCarnet(Empresa empresa)
+	{
+		for(Entry<String, Carnet> item:empresa.getTiposdecarnet().entrySet())
+		{
+			String tipo= item.getKey();
+			Carnet carnet=item.getValue();
+			System.out.println(carnet);
+		}
+	}
+	
+	public static void MostrarListaOficinas(Empresa empresa)
+	{
+		for(Entry<String, Oficina> item:empresa.getListaoficinas().entrySet())
+		{
+			String codigoofi= item.getKey();
+			Oficina oficina=item.getValue();
+			System.out.println(oficina);
+		}
+	}
+	
+	public static void MostrarStockVehiculos(Empresa empresa)
+	{
+		for(Entry<String, Vehiculo> item:empresa.getListavehiculos().entrySet())
+		{
+			String matricula= item.getKey();
+			Vehiculo vehiculo=item.getValue();
+			System.out.println(vehiculo);
+		}
+	}
+	
+	public static void MostrarListaCategorias(Empresa empresa)
+	{
+		for(Entry<String, Categoria> item:empresa.getListacategorias().entrySet())
+		{
+			String codcategoria= item.getKey();
+			Categoria categoria=item.getValue();
+			System.out.println(categoria);
+		}
+	}
+	
+	
 }
