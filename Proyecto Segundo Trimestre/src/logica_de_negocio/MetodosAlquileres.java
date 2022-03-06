@@ -110,7 +110,7 @@ public class MetodosAlquileres {
 		
 		int _kmsrecorridos=interfazusuario.PideNumeroValidado(1, 1000000, "Introduzca los kilometros que ha recorrido: ");
 		try {
-			Modificarkms(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo);
+			ModificacionesDevolucion(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo,a.get_lugaralquiler());
 		} catch (ValorNoValidoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,7 +147,7 @@ public class MetodosAlquileres {
 		return precio;
 	}
 	
-	public static void Modificarkms(Empresa empresa,String matricula,int kmsrecorridos,int tipo)throws ValorNoValidoException
+	public static void ModificacionesDevolucion(Empresa empresa,String matricula,int kmsrecorridos,int tipo,Oficina ofidevolucion)throws ValorNoValidoException
 	{
 		
 		switch (tipo)
@@ -155,21 +155,25 @@ public class MetodosAlquileres {
 			case 1://COCHE ELECTRICO
 				Cocheelectrico celec=empresa.BuscaCocheelect(matricula);
 				celec.setKms(celec.getKms()+kmsrecorridos);
+				celec.setUbicacion(ofidevolucion);
 				empresa.AñadeVehiculo(empresa, celec);
 				break;
 			case 2://MOTO
 				Moto moto=empresa.BuscaMoto(matricula);
 				moto.setKms(moto.getKms()+kmsrecorridos);
+				moto.setUbicacion(ofidevolucion);
 				empresa.AñadeVehiculo(empresa, moto);
 				break;
 			case 3://COCHE COMBUSTION
 				Cochecomb ccomb=empresa.BuscaCochecomb(matricula);
 				ccomb.setKms(ccomb.getKms()+kmsrecorridos);
+				ccomb.setUbicacion(ofidevolucion);
 				empresa.AñadeVehiculo(empresa, ccomb);
 				break;
 			case 4://FURGONETA
 				Furgoneta furgo=empresa.BuscaFurgoneta(matricula);
 				furgo.setKms(furgo.getKms()+kmsrecorridos);
+				furgo.setUbicacion(ofidevolucion);
 				empresa.AñadeVehiculo(empresa, furgo);
 				break;
 		}

@@ -754,4 +754,30 @@ public class MetodosConcretos {
 		}
 	}
 	
+	public static void MostrarAlqSegunVehiculo(Empresa empresa)
+	{
+		String matricula=interfazusuario.PideCadenaValidada(7, "MATRICULA: ");
+		ArrayList<Alquiler>alquilerescoche=new ArrayList<Alquiler>(empresa.getHistorialalquileres().values());
+		for (int i=0;i<alquilerescoche.size();i++)
+		{
+			if(alquilerescoche.get(i).get_vehiculo().getMatricula().equals(matricula))
+			{
+				System.out.println(alquilerescoche.get(i));
+			}
+		}
+	}
+	
+	public static void MostrarAlqSegunFechas(Empresa empresa)
+	{
+		GregorianCalendar primerafecha=interfazusuario.PideFechaValidada("INTRODUZCA LA PRIMERA FECHA: ");
+		GregorianCalendar segundafecha=interfazusuario.PideFechaValidada("INTRODUZCA LA SEGUNDA FECHA: ");
+		ArrayList<Alquiler>alquilerescoche=new ArrayList<Alquiler>(empresa.getHistorialalquileres().values());
+		for (int i=0;i<alquilerescoche.size();i++)
+		{
+			if((primerafecha.compareTo(alquilerescoche.get(i).get_finialquiler())<0)&&(alquilerescoche.get(i).get_finialquiler().compareTo(segundafecha)<0))
+			{
+				System.out.println(alquilerescoche.get(i));
+			}
+		}
+	}
 }

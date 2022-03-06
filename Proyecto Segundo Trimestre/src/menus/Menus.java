@@ -129,10 +129,10 @@ public class Menus {
 		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 12);
 		switch (opcion) {
 		case 1:
-			//TODO METODO.MUESTRA_SEGUN_FECHA
+			MetodosConcretos.MostrarAlqSegunFechas(empresa);
 			break;
 		case 2:
-			//TODO METODO.MUESTRA_SEGUN_VEHICULO
+			MetodosConcretos.MostrarAlqSegunVehiculo(empresa);
 			break;
 		case 3:
 			MetodosConcretos.MostrarStockVehiculos(empresa);	
