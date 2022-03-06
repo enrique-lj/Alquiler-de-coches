@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 
 	private static final long serialVersionUID = 8799656478674716777L;
+	private int tipovehiculo;
 	private String nbastidor;
 	private String matricula;
 	private String marca;
@@ -289,6 +290,20 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	 */
 	public void setUbicacion(Oficina ubicacion) {
 		this.ubicacion = ubicacion;
+	}
+
+	/**
+	 * @return the tipovehiculo
+	 */
+	public int getTipovehiculo() {
+		return tipovehiculo;
+	}
+
+	/**
+	 * @param tipovehiculo the tipovehiculo to set
+	 */
+	public void setTipovehiculo(int tipovehiculo) {
+		this.tipovehiculo = tipovehiculo;
 	}
 	
 	

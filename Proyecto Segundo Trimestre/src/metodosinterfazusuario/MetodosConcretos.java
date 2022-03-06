@@ -154,13 +154,306 @@ public class MetodosConcretos {
 		}
 		return _empleado;
 	}
+	
+	/**
+	 * Metodo que pide los datos de una moto
+	 * @param empresa, pasandole como parametro una empresa
+	 * @return devuelve un vehiculo tipo moto
+	 */
+	public static Moto PideDatosMoto(Empresa empresa)
+	{
+		Moto moto=null;
+		String _nbastidor=interfazusuario.PideCadenaValidada(17, "Numero de bastidor: ");
+		String _matricula=interfazusuario.PideCadenaValidada(7, "Matricula: ");
+		String _marca=interfazusuario.PideCadenaValidada(35, "Marca: ");
+		String _modelo=interfazusuario.PideCadenaValidada(35, "Modelo: ");
+		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
+		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
+		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
+		Categoria _categoria=null;
+		String _opccat;
+		do
+		{
+			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
+			if (empresa.BuscaCategoria(_opccat)!=null)
+			{
+				 _categoria=empresa.BuscaCategoria(_opccat);
+			}
+			else
+			{
+				System.out.println("Categoria no existente.");
+			}
+		} 
+		while (empresa.BuscaCategoria(_opccat)==null);
+		String _opcofi=null;
+		Oficina _oficina=null;
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
+		Carnet _carnetrequerido=null;
+		String _opccarnet;
+		int _autonomia=interfazusuario.PideNumeroValidado(1, 600, "Kms de autonomia: ");
+		int _tiempodecarga=interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: ");
+		int _cilindrada=interfazusuario.PideNumeroValidado(1, 3000, "Cilindrada: ");
+		do
+		{
+			 _opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
+			if (empresa.BuscaCarnet(_opccarnet)!=null)
+			{
+				 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
+			}
+			else
+			{
+				System.out.println("Tipo de carnet no valido.");
+			}
+		} 
+		while (empresa.BuscaCarnet(_opccarnet)==null);
+		try
+		{
+		moto=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
+				_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_cilindrada,_carnetrequerido);
+		moto.setTipovehiculo(2);
+		}
+		catch (LongitudNoValidaException e)
+		{
+			System.out.println("Longitud no valida.");
+		}
+		catch (ValorNoValidoException e)
+		{
+			System.out.println("Valor no valido");
+		}
+		return moto;
+	}
+	/**
+	 * Metodo que pide los datos de un coche electrico 
+	 * @param empresa, se le pasa como parametro una empresa
+	 * @return devuelve un vehiculo tipo coche electrico
+	 */
+	public static Cocheelectrico PideDatosCocheElec(Empresa empresa)
+	{
+		Cocheelectrico celect=null;
+		String _nbastidor=interfazusuario.PideCadenaValidada(17, "Numero de bastidor: ");
+		String _matricula=interfazusuario.PideCadenaValidada(7, "Matricula: ");
+		String _marca=interfazusuario.PideCadenaValidada(35, "Marca: ");
+		String _modelo=interfazusuario.PideCadenaValidada(35, "Modelo: ");
+		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
+		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
+		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
+		Categoria _categoria=null;
+		String _opccat;
+		do
+		{
+			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
+			if (empresa.BuscaCategoria(_opccat)!=null)
+			{
+				 _categoria=empresa.BuscaCategoria(_opccat);
+			}
+			else
+			{
+				System.out.println("Categoria no existente.");
+			}
+		} 
+		while (empresa.BuscaCategoria(_opccat)==null);
+		String _opcofi=null;
+		Oficina _oficina=null;
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
+		int _autonomia=interfazusuario.PideNumeroValidado(1, 600, "Kms de autonomia: ");
+		int _tiempodecarga=interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: ");
+		int _nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
+		String _tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
+		try
+		{
+		celect=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
+				_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_nplazas,_tipo);
+		celect.setTipovehiculo(1);
+		}
+		catch (LongitudNoValidaException e)
+		{
+			System.out.println("Longitud no valida.");
+		}
+		catch (ValorNoValidoException e)
+		{
+			System.out.println("Valor no valido");
+		}
+		return celect;
+	}
+	/**
+	 * Metodo que pide los datos de un coche de combustion
+	 * @param empresa, se le pasa como parametro una empresa
+	 * @return devuelve un vehiculo tipo coche de combustion
+	 */
+	public static Cochecomb PideDatosCocheComb(Empresa empresa)
+	{
+		Cochecomb ccomb=null;
+		String _nbastidor=interfazusuario.PideCadenaValidada(17, "Numero de bastidor: ");
+		String _matricula=interfazusuario.PideCadenaValidada(7, "Matricula: ");
+		String _marca=interfazusuario.PideCadenaValidada(35, "Marca: ");
+		String _modelo=interfazusuario.PideCadenaValidada(35, "Modelo: ");
+		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
+		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
+		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
+		Categoria _categoria=null;
+		String _opccat;
+		do
+		{
+			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
+			if (empresa.BuscaCategoria(_opccat)!=null)
+			{
+				 _categoria=empresa.BuscaCategoria(_opccat);
+			}
+			else
+			{
+				System.out.println("Categoria no existente.");
+			}
+		} 
+		while (empresa.BuscaCategoria(_opccat)==null);
+		String _opcofi=null;
+		Oficina _oficina=null;
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
+		int _consumo=interfazusuario.PideNumeroValidado(1, 600, "Consumo: ");
+		int _potencia=interfazusuario.PideNumeroValidado(1, 600, "Potencia: ");
+		String _nvemisiones=interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: ");
+		int _nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
+		String _tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
+		try
+		{
+		ccomb=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
+				_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_nplazas,_tipo);
+		ccomb.setTipovehiculo(3);
+		}
+		catch (LongitudNoValidaException e)
+		{
+			System.out.println("Longitud no valida.");
+		}
+		catch (ValorNoValidoException e)
+		{
+			System.out.println("Valor no valido");
+		}
+		return ccomb;
+	}
+	/**
+	 * Metodo que pide los datos de una furgoneta
+	 * @param empresa, se le pasa como parametro una empresa
+	 * @return Devuelve un vehiculo tipo furgoneta
+	 */
+	public static Furgoneta PideDatosFurgoneta(Empresa empresa)
+	{
+		Furgoneta furgoneta=null;
+		String _nbastidor=interfazusuario.PideCadenaValidada(17, "Numero de bastidor: ");
+		String _matricula=interfazusuario.PideCadenaValidada(7, "Matricula: ");
+		String _marca=interfazusuario.PideCadenaValidada(35, "Marca: ");
+		String _modelo=interfazusuario.PideCadenaValidada(35, "Modelo: ");
+		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
+		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
+		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
+		Categoria _categoria=null;
+		String _opccat;
+		do
+		{
+			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
+			if (empresa.BuscaCategoria(_opccat)!=null)
+			{
+				 _categoria=empresa.BuscaCategoria(_opccat);
+			}
+			else
+			{
+				System.out.println("Categoria no existente.");
+			}
+		} 
+		while (empresa.BuscaCategoria(_opccat)==null);
+		String _opcofi=null;
+		Oficina _oficina=null;
+		do
+		{
+			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			if (empresa.BuscaOficina(_opcofi)!=null)
+			{
+				 _oficina=empresa.BuscaOficina(_opcofi);
+			}
+			else
+			{
+				System.out.println("Codigo de oficina no existente.");
+			}
+		} 
+		while (empresa.BuscaOficina(_opcofi)==null);
+		int _consumo=interfazusuario.PideNumeroValidado(1, 600, "Consumo: ");
+		int _potencia=interfazusuario.PideNumeroValidado(1, 600, "Potencia: ");
+		String _nvemisiones=interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: ");
+		double _capacidad=interfazusuario.PideNumeroValidadoDouble(1.00, 10.00, "Capacidad: ");
+		String _opccarnet;
+		Carnet _carnetrequerido=null;
+		do
+		{
+			_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
+			if (empresa.BuscaCarnet(_opccarnet)!=null)
+			{
+				 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
+			}
+			else
+			{
+				System.out.println("Tipo de carnet no valido.");
+			}
+		} 
+		while (empresa.BuscaCarnet(_opccarnet)==null);
+		try
+		{
+		furgoneta=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
+				_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_capacidad,_carnetrequerido);
+		furgoneta.setTipovehiculo(4);
+		}
+		catch (LongitudNoValidaException e)
+		{
+			System.out.println("Longitud no valida.");
+		}
+		catch (ValorNoValidoException e)
+		{
+			System.out.println("Valor no valido");
+		}
+		return furgoneta;
+	}
+	
+	
 	/**
 	 * Metodo que se encarga de pedir los datos de un vehiculo, pregunta a través de menus,
 	 * si es electrico o de combustion. Si es electrico, pregunta si es coche o moto y pide los
 	 * datos del que se haya elegido, para despues crear un objeto de ese tipo. Si es de combustion,
 	 * hace lo mismo, pero con los datos referentes a furgoneta y coche de combustión.
 	 * @return Devuelve un objeto de tipo vehiculo
-	 */
+	 *//*
 	public static Vehiculo PideDatosVehiculo(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -231,8 +524,9 @@ public class MetodosConcretos {
 				_tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
 				try
 				{
-				_vehiculo=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
+				Cocheelectrico cocheelectrico=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
 						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_nplazas,_tipo);
+				cocheelectrico.setTipovehiculo(1);
 				}
 				catch (LongitudNoValidaException e)
 				{
@@ -261,8 +555,9 @@ public class MetodosConcretos {
 				while (empresa.BuscaCarnet(_opccarnet)==null);
 				try
 				{
-				_vehiculo=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
+				Moto moto=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
 						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_cilindrada,_carnetrequerido);
+				moto.setTipovehiculo(2);
 				}
 				catch (LongitudNoValidaException e)
 				{
@@ -289,8 +584,9 @@ public class MetodosConcretos {
 				_tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
 				try
 				{
-				_vehiculo=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
+				Cochecomb cochecomb=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
 						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_nplazas,_tipo);
+				cochecomb.setTipovehiculo(3);
 				}
 				catch (LongitudNoValidaException e)
 				{
@@ -319,8 +615,9 @@ public class MetodosConcretos {
 				while (empresa.BuscaCarnet(_opccarnet)==null);
 				try
 				{
-				_vehiculo=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
+				Furgoneta furgoneta=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
 						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_capacidad,_carnetrequerido);
+				furgoneta.setTipovehiculo(4);
 				}
 				catch (LongitudNoValidaException e)
 				{
@@ -333,7 +630,7 @@ public class MetodosConcretos {
 			}
 		}
 		return _vehiculo;	
-	}
+	}*/
 	
 	public static Empresa PideDatosEmpresa()
 	{
@@ -398,6 +695,7 @@ public class MetodosConcretos {
 	
 	public static void MostrarStockVehiculos(Empresa empresa)
 	{
+		//empresa.RellenarStock(empresa);
 		for(Entry<String, Vehiculo> item:empresa.getListavehiculos().entrySet())
 		{
 			String matricula= item.getKey();
@@ -413,6 +711,26 @@ public class MetodosConcretos {
 			String codcategoria= item.getKey();
 			Categoria categoria=item.getValue();
 			System.out.println(categoria);
+		}
+	}
+	
+	public static void MostrarListaMotos(Empresa empresa)
+	{
+		for(Entry<String, Moto> item:empresa.getListamotos().entrySet())
+		{
+			String matricula= item.getKey();
+			Moto moto=item.getValue();
+			System.out.println(moto);
+		}
+	}
+	
+	public static void MostrarListaFurgonetas(Empresa empresa)
+	{
+		for(Entry<String, Furgoneta> item:empresa.getListafurgonetas().entrySet())
+		{
+			String matricula= item.getKey();
+			Furgoneta furgoneta=item.getValue();
+			System.out.println(furgoneta);
 		}
 	}
 	

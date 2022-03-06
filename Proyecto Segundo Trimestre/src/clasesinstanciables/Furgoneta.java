@@ -57,7 +57,7 @@ public class Furgoneta extends Combustion implements Serializable {
 	 */
 	public String toString()
 	{
-		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+capacidad+"m3 - Carnet("+carnetrequerido.getTipo()+") - Furgoneta.";
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+capacidad+"m3 - Carnet("+carnetrequerido.getTipo()+") - Furgoneta."+getTipovehiculo();
 	}
 	
 	//GETTERS Y SETTERS

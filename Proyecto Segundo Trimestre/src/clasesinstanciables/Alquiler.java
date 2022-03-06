@@ -5,12 +5,14 @@ public class Alquiler implements Serializable{
 
 	//PROPIEDADES 
 	private static final long serialVersionUID = 8799656478674716638L;
+	private String codalquiler;
 	private Vehiculo _vehiculo;
 	private Empleado _empleado;
 	private Cliente _cliente;
 	private GregorianCalendar _finialquiler;
 	private GregorianCalendar _ffinalquiler;
 	private Oficina _lugaralquiler;
+	private int precioprevisto;
 	
 	//CONSTRUCTORES
 	
@@ -23,14 +25,16 @@ public class Alquiler implements Serializable{
 	 * @param _ffinalquiler
 	 * @param _lugaralquiler
 	 */
-	public Alquiler(Vehiculo _vehiculo,Empleado _empleado,Cliente _cliente,GregorianCalendar _finialquiler,
-			GregorianCalendar _ffinalquiler,Oficina _lugaralquiler) {
+	public Alquiler(String codalquiler,Vehiculo _vehiculo,Empleado _empleado,Cliente _cliente,GregorianCalendar _finialquiler,
+			GregorianCalendar _ffinalquiler,Oficina _lugaralquiler,int precioprevisto) {
+		this.setCodalquiler(codalquiler);
 		this.set_vehiculo(_vehiculo);
 		this.set_empleado(_empleado);
 		this.set_cliente(_cliente);
 		this.set_finialquiler(_finialquiler);
 		this.set_ffinalquiler(_ffinalquiler);
 		this.set_lugaralquiler(_lugaralquiler);
+		this.setPrecioprevisto(precioprevisto);
 	}
 	
 	/**
@@ -38,12 +42,14 @@ public class Alquiler implements Serializable{
 	 * @param alquiler
 	 */
 	public Alquiler(Alquiler alquiler) {
+		this.setCodalquiler(alquiler.getCodalquiler());
 		this.set_vehiculo(alquiler.get_vehiculo());
 		this.set_empleado(alquiler.get_empleado());
 		this.set_cliente(alquiler.get_cliente());
 		this.set_ffinalquiler(alquiler.get_ffinalquiler());
 		this.set_finialquiler(alquiler.get_ffinalquiler());
 		this.set_lugaralquiler(alquiler.get_lugaralquiler());
+		this.setPrecioprevisto(alquiler.getPrecioprevisto());
 	}
 	
 	//TODO METODOS
@@ -120,6 +126,34 @@ public class Alquiler implements Serializable{
 	 */
 	public void set_lugaralquiler(Oficina _lugaralquiler) {
 		this._lugaralquiler = _lugaralquiler;
+	}
+
+	/**
+	 * @return the codalquiler
+	 */
+	public String getCodalquiler() {
+		return codalquiler;
+	}
+
+	/**
+	 * @param codalquiler the codalquiler to set
+	 */
+	public void setCodalquiler(String codalquiler) {
+		this.codalquiler = codalquiler;
+	}
+
+	/**
+	 * @return the precioprevisto
+	 */
+	public int getPrecioprevisto() {
+		return precioprevisto;
+	}
+
+	/**
+	 * @param precioprevisto the precioprevisto to set
+	 */
+	public void setPrecioprevisto(int precioprevisto) {
+		this.precioprevisto = precioprevisto;
 	}
 	
 	

@@ -1,6 +1,8 @@
 package menus;
 import mismetodosgenerales.*;
 import clasesinstanciables.*;
+import excepciones.LongitudNoValidaException;
+import logica_de_negocio.Mantenimiento;
 import metodosinterfazusuario.MetodosConcretos;
 import java.util.ArrayList;
 public class Menus {
@@ -9,6 +11,7 @@ public class Menus {
 	 * Menu principal del programa el cual va a dictar el flujo de nuestro programa. Se compone de
 	 * varios menus conectados entre si, que gestionan el mantenimiento de ficheros, los alquileres,
 	 * muestra informes y serializa la empresa cuando se elige la opcion de salir.
+	 * @throws LongitudNoValidaException 
 	 */
 	public static void MenuPrincipal(Empresa empresa)
 	{
@@ -61,218 +64,23 @@ public class Menus {
 			switch (opcion)
 			{
 				case 1:
-					do
-					{
-						opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la oficina: ");
-						if(empresa.BuscaOficina(opc)!=null)
-						{
-							opciones.clear();
-							opciones.add("MODIFICAR");
-							opciones.add("BORRAR");
-							opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-							if (opcion==1)
-							{
-								do
-								{
-									//Metodo.Modifica.Oficina			
-								}
-								while (interfazusuario.MenuSioNo("¿Desea modificar otra oficina?")==1);
-							}
-							else
-							{
-								do
-								{
-									if (interfazusuario.MenuSioNo("¿Esta seguro de que desea borrar?")==1)
-									{
-										empresa.BorraOficina(opc);	
-									}				
-								}
-								while (interfazusuario.MenuSioNo("¿Desea borrar otra oficina?")==1);
-							}
-						}
-						else
-						{
-							do
-							{
-								empresa.AñadeOficina();			
-							}
-							while (interfazusuario.MenuSioNo("¿Desea añadir otra oficina?")==1);
-						}
-						
-					}
-					while (interfazusuario.MenuSioNo("¿Desea buscar otra oficina?")==1);
+					Mantenimiento.MantenimientoOficinas(empresa);
 					opcion=0;
 					break;
 				case 2:
-					do
-					{
-						opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la categoria: ");
-						if(empresa.BuscaCategoria(opc)!=null)
-						{
-							opciones.clear();
-							opciones.add("MODIFICAR");
-							opciones.add("BORRAR");
-							opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-							if (opcion==1)
-							{
-								do
-								{
-									//Metodo.Modifica.Categoria			
-								}
-								while (interfazusuario.MenuSioNo("¿Desea modificar otra categoria?")==1);
-							}
-							else
-							{
-								do
-								{
-									if (interfazusuario.MenuSioNo("¿Esta seguro de que desea borrar?")==1)
-									{
-										empresa.BorraCategoria(opc);
-									}				
-								}
-								while (interfazusuario.MenuSioNo("¿Desea borrar otra categoria?")==1);
-							}
-						}
-						else
-						{
-							do
-							{
-								empresa.AñadeCategoria();			
-							}
-							while (interfazusuario.MenuSioNo("¿Desea añadir otra categoria?")==1);
-						}
-						
-					}
-					while (interfazusuario.MenuSioNo("¿Desea buscar otra categoria?")==1);
+					Mantenimiento.MantenimientoCategorias(empresa);
 					opcion=0;
 					break;
 				case 3:
-					do
-					{
-						opc=interfazusuario.PideDniValidad();
-						if(empresa.BuscaEmpleado(opc)!=null)
-						{
-							opciones.clear();
-							opciones.add("MODIFICAR");
-							opciones.add("BORRAR");
-							opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-							if (opcion==1)
-							{
-								do
-								{
-									//Metodo.Modifica.Empleado			
-								}
-								while (interfazusuario.MenuSioNo("¿Desea modificar otro empleado?")==1);
-							}
-							else
-							{
-								do
-								{
-									if (interfazusuario.MenuSioNo("¿Esta seguro de que desea borrar?")==1)
-									{
-										empresa.BorraEmpleado(opc);
-									}		
-								}
-								while (interfazusuario.MenuSioNo("¿Desea borrar otro empleado?")==1);
-							}
-						}
-						else
-						{
-							do
-							{
-								empresa.AñadeEmpleado(empresa);	
-							}
-							while (interfazusuario.MenuSioNo("¿Desea dar de alta otro empleado?")==1);
-						}
-						
-					}
-					while (interfazusuario.MenuSioNo("¿Desea buscar otro empleado?")==1);
+					Mantenimiento.MantenimientoEmpleados(empresa);
 					opcion=0;
 					break;
 				case 4:
-					do
-					{
-						opc=interfazusuario.PideCadenaValidada(7,"Introduzca la matricula: ");
-						if(empresa.BuscaVehiculo(opc)!=null)
-						{
-							opciones.clear();
-							opciones.add("MODIFICAR");
-							opciones.add("BORRAR");
-							opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-							if (opcion==1)
-							{
-								do
-								{
-									//Metodo.Modifica.Vehiculo			
-								}
-								while (interfazusuario.MenuSioNo("¿Desea modificar otro vehiculo?")==1);
-							}
-							else
-							{
-								do
-								{
-									if (interfazusuario.MenuSioNo("¿Esta seguro de que desea borrar?")==1)
-									{
-										empresa.BorraVehiculo(opc);
-									}		
-								}
-								while (interfazusuario.MenuSioNo("¿Desea borrar otro vehiculo?")==1);
-							}
-						}
-						else
-						{
-							do
-							{
-								empresa.AñadeVehiculo(empresa);	
-							}
-							while (interfazusuario.MenuSioNo("¿Desea añadir otro vehiculo?")==1);
-						}
-						
-					}
-					while (interfazusuario.MenuSioNo("¿Desea buscar otro vehiculo?")==1);
+					Mantenimiento.MantenimientoVehiculos(empresa);
 					opcion=0;
 					break;
 				case 5:
-					do
-					{
-						opc=interfazusuario.PideCadenaValidada(7,"Introduzca el tipo de carnet que desea buscar: ");
-						if(empresa.BuscaCarnet(opc)!=null)
-						{
-							opciones.clear();
-							opciones.add("MODIFICAR");
-							opciones.add("BORRAR");
-							opcion=interfazusuario.MenuInt("¿QUE QUIERES HACER?", opciones, 1, 2);
-							if (opcion==1)
-							{
-								do
-								{
-									//Metodo.Modifica.Carnet			
-								}
-								while (interfazusuario.MenuSioNo("¿Desea modificar otro carnet?")==1);
-							}
-							else
-							{
-								do
-								{
-									if (interfazusuario.MenuSioNo("¿Esta seguro de que desea borrar?")==1)
-									{
-										empresa.BorraCarnet(opc);
-									}		
-								}
-								while (interfazusuario.MenuSioNo("¿Desea borrar otro carnet?")==1);
-							}
-						}
-						else
-						{
-							do
-							{
-								empresa.AñadeCarnet();	
-							}
-							while (interfazusuario.MenuSioNo("¿Desea añadir otro carnet?")==1);
-						}
-						
-					}
-					while (interfazusuario.MenuSioNo("¿Desea buscar otro carnet?")==1);
+					Mantenimiento.MantenimientoCarnets(empresa);
 					opcion=0;
 					break;
 			}
@@ -286,7 +94,6 @@ public class Menus {
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
-		opciones.clear();
 		opciones.add("ALQUILAR");
 		opciones.add("DEVOLVER");
 		opcion=interfazusuario.MenuInt("OPCIONES", opciones, 1, 2);
@@ -300,11 +107,12 @@ public class Menus {
 		}
 	}
 	
+	
+	
 	public static void MenuInformes(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
-		opciones.clear();
 		opciones.add("ALQUILERES REALIZADOS SEGUN FECHA");
 		opciones.add("ALQUILERES REALIZADOS SEGUN VEHICULO");
 		opciones.add("LISTADO DE STOCK");
@@ -313,7 +121,9 @@ public class Menus {
 		opciones.add("MOSTRAR TIPOS DE CARNET");
 		opciones.add("MOSTRAR LISTA DE OFICINAS");
 		opciones.add("MOSTRAR CATEGORIAS");
-		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 8);
+		opciones.add("MOSTRAR LISTA MOTOS");
+		opciones.add("MOSTRAR LISTA FURGONETAS");
+		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 10);
 		switch (opcion) {
 		case 1:
 			//TODO METODO.MUESTRA_SEGUN_FECHA
@@ -338,6 +148,13 @@ public class Menus {
 			break;
 		case 8:
 			MetodosConcretos.MostrarListaCategorias(empresa);
+			break;
+		case 9:
+			MetodosConcretos.MostrarListaMotos(empresa);
+			break;
+		case 10:
+			MetodosConcretos.MostrarListaFurgonetas(empresa);
+			break;
 		}
 
 	}
