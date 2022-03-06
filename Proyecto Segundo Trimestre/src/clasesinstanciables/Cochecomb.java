@@ -61,6 +61,29 @@ public class Cochecomb extends Combustion implements Serializable {
 		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche combustión.";
 	}
 	
+	@Override
+	public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto)
+	{
+		double preciofinal=0;
+		double preciobase=50;
+		//se calcula el recargo que se le tiene que hacer segun la categoria
+		double importerecargo=(recargo*preciobase)/100;
+		//se le suma el recargo al precio base
+		double preciotrasrecargo=importerecargo+preciobase;
+		//se le suma el recargo de oficina de aeropuerto en caaso de que lo fuese
+		if (ofiaeropuerto==true)
+		{
+			double importe=(10*preciotrasrecargo)/100;
+			double preciototal=importe+preciotrasrecargo;
+			preciofinal=preciototal*diasalquilado;
+		}
+		else
+		{
+			preciofinal=preciotrasrecargo*diasalquilado;
+		}	
+		return preciofinal;
+	}
+	
 	//GETTERS Y SETTERS
 	/**
 	 * @return the nplazas

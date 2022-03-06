@@ -60,6 +60,32 @@ public class Cocheelectrico extends Electrico implements Serializable{
 		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche electrico.";
 	}
 	
+	@Override
+	public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto)
+	{
+		double preciofinal=0;
+		double preciobase=50;
+		//se multiplica por 15 por ser electrico y 50 por ser coche 
+		double incrementoelect=(15*preciobase)/100;
+		//precio base mas incremento
+		double precionuevo=preciobase+incrementoelect;
+		//al precio ya incrementado se le suma el recargo correspondiente por categoria
+		double importerecargo=(recargo*precionuevo)/100;
+		double preciotrasrecargo=importerecargo+precionuevo;
+		//si es oficina de aeropuerto se le suma un recargo del 10% y se multiplica por los dias alquilado
+		if (ofiaeropuerto==true)
+		{
+			double incremento=(10*preciotrasrecargo)/100;
+			double preciototal=incremento+preciotrasrecargo;
+			preciofinal=preciototal*diasalquilado;
+		}
+		else
+		{
+			preciofinal=preciotrasrecargo*diasalquilado;
+		}	
+		return preciofinal;	
+	}
+	
 	//GETTERS Y SETTERS
 	/**
 	 * @return the nplazas

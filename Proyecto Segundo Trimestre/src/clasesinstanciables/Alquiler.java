@@ -12,7 +12,11 @@ public class Alquiler implements Serializable{
 	private GregorianCalendar _finialquiler;
 	private GregorianCalendar _ffinalquiler;
 	private Oficina _lugaralquiler;
-	private int precioprevisto;
+	private double precioprevisto;
+	private Empleado empleadodev;
+	private GregorianCalendar fdevolucion;
+	private int kmsrecorridos;
+	private double preciofinal;
 	
 	//CONSTRUCTORES
 	
@@ -26,7 +30,7 @@ public class Alquiler implements Serializable{
 	 * @param _lugaralquiler
 	 */
 	public Alquiler(String codalquiler,Vehiculo _vehiculo,Empleado _empleado,Cliente _cliente,GregorianCalendar _finialquiler,
-			GregorianCalendar _ffinalquiler,Oficina _lugaralquiler,int precioprevisto) {
+			GregorianCalendar _ffinalquiler,Oficina _lugaralquiler,double precioprevisto) {
 		this.setCodalquiler(codalquiler);
 		this.set_vehiculo(_vehiculo);
 		this.set_empleado(_empleado);
@@ -53,6 +57,15 @@ public class Alquiler implements Serializable{
 	}
 	
 	//TODO METODOS
+	
+	public String toString()
+	{
+		return "CODIGO: "+codalquiler+" - VEHICULO: "+_vehiculo.getMatricula()+" - EMPLEADO: "+_empleado.getDni()+
+				" - CLIENTE: "+_cliente.getDni()+"; "+_cliente.NombreCompleto()+" - FECHA INCIO: "+_finialquiler+
+				" - FECHA FIN ALQUILER: "+_ffinalquiler+" - OFICINA DE DEVOLUCION: "+_lugaralquiler.getCodigoofi()+
+				" - PRECIO PREVISTO A PAGAR: "+precioprevisto;
+				
+	}
 	
 	//GETTERS Y SETTERS
 	/**
@@ -145,15 +158,71 @@ public class Alquiler implements Serializable{
 	/**
 	 * @return the precioprevisto
 	 */
-	public int getPrecioprevisto() {
+	public double getPrecioprevisto() {
 		return precioprevisto;
 	}
 
 	/**
 	 * @param precioprevisto the precioprevisto to set
 	 */
-	public void setPrecioprevisto(int precioprevisto) {
+	public void setPrecioprevisto(double precioprevisto) {
 		this.precioprevisto = precioprevisto;
+	}
+
+	/**
+	 * @return the empleadodev
+	 */
+	public Empleado getEmpleadodev() {
+		return empleadodev;
+	}
+
+	/**
+	 * @param empleadodev the empleadodev to set
+	 */
+	public void setEmpleadodev(Empleado empleadodev) {
+		this.empleadodev = empleadodev;
+	}
+
+	/**
+	 * @return the fdevolucion
+	 */
+	public GregorianCalendar getFdevolucion() {
+		return fdevolucion;
+	}
+
+	/**
+	 * @param fdevolucion the fdevolucion to set
+	 */
+	public void setFdevolucion(GregorianCalendar fdevolucion) {
+		this.fdevolucion = fdevolucion;
+	}
+
+	/**
+	 * @return the kmsrecorridos
+	 */
+	public int getKmsrecorridos() {
+		return kmsrecorridos;
+	}
+
+	/**
+	 * @param kmsrecorridos the kmsrecorridos to set
+	 */
+	public void setKmsrecorridos(int kmsrecorridos) {
+		this.kmsrecorridos = kmsrecorridos;
+	}
+
+	/**
+	 * @return the preciofinal
+	 */
+	public double getPreciofinal() {
+		return preciofinal;
+	}
+
+	/**
+	 * @param preciofinal the preciofinal to set
+	 */
+	public void setPreciofinal(double preciofinal) {
+		this.preciofinal = preciofinal;
 	}
 	
 	

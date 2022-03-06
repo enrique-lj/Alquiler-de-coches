@@ -734,5 +734,24 @@ public class MetodosConcretos {
 		}
 	}
 	
+	public static void MostrarListaVehiculosAlquilados(Empresa empresa)
+	{
+		for(Entry<String, Vehiculo> item:empresa.getVehiculosalquilados().entrySet())
+		{
+			String matricula=item.getKey();
+			Vehiculo vehiculo=item.getValue();
+			System.out.println(vehiculo);
+		}
+	}
+	
+	public static void MostrarHistorialAlquileres(Empresa empresa)
+	{
+		for(Entry<String, Alquiler> item:empresa.getHistorialalquileres().entrySet())
+		{
+			String codalquiler=item.getKey();
+			Alquiler alquiler=item.getValue();
+			System.out.println(alquiler);
+		}
+	}
 	
 }

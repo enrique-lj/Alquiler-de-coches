@@ -33,6 +33,7 @@ public class Empresa implements Serializable {
 	private TreeMap <String, Furgoneta>listafurgonetas=new TreeMap<String, Furgoneta>();
 	private TreeMap <String, Cochecomb>listaccomb=new TreeMap<String, Cochecomb>();
 	private TreeMap <String, Cocheelectrico> listacelect=new TreeMap <String, Cocheelectrico>();
+	private TreeMap <String, Alquiler> historialalquileres=new TreeMap<String,Alquiler>();
 	int longinombre=75;
 	int longinif=9;
 
@@ -95,6 +96,7 @@ public class Empresa implements Serializable {
 		listafurgonetas=new TreeMap<String, Furgoneta>();
 		listaccomb=new TreeMap<String, Cochecomb>();
 		listacelect=new TreeMap <String, Cocheelectrico>();
+		historialalquileres=new TreeMap<String,Alquiler>();
 	}
 	/**
 	 * Metodo para grabar la empresa, cogiendo el archivo empresa.ser y mediantoe el metodo writeObject grabandola.
@@ -164,6 +166,11 @@ public class Empresa implements Serializable {
 			listavehiculos.putAll(listamotos);
 			listavehiculos.putAll(listaccomb);
 			listavehiculos.putAll(listafurgonetas);	
+	}
+	
+	public Alquiler BuscaAlquiler(String codalquiler)
+	{
+		return historialalquileres.get(codalquiler);
 	}
 	/**
 	 * Metodo que se encarga de buscar un empleado en el TreeMap de plantilla pasandole 
@@ -265,6 +272,20 @@ public class Empresa implements Serializable {
 	{
 		return listacategorias.get(codcategoria);
 	}
+	
+	public void AñadeAlquiler(Alquiler alquiler)
+	{
+		historialalquileres.put(alquiler.getCodalquiler(), alquiler);
+	}
+	
+	/**
+	 * 
+	 * @param vehiculo
+	 */
+	public void AñadeVehiculoAlquilado(Vehiculo vehiculo)
+	{
+		vehiculosalquilados.put(vehiculo.getMatricula(), vehiculo);
+	}
 	/**
 	 * Metodo que se encarga de llamar al metodo PideDatosCliente para introducir los datos
 	 * en un objeto de tipo cliente y éste introducirlo en el TreeMap de listaclientes.
@@ -334,6 +355,11 @@ public class Empresa implements Serializable {
 		listafurgonetas.put(furgoneta.getMatricula(), furgoneta);
 		listavehiculos.put(furgoneta.getMatricula(), furgoneta);
 	}
+	
+	public void AñadeVehiculo(Empresa empresa,Vehiculo v)
+	{
+		listavehiculos.put(v.getMatricula(), v);
+	}
 	/**
 	 * Metodo que se encarga de llamar al metodo PideDatosOficina para introducirlos datos
 	 * en un objeto de tipo oficina y éste introducirlo en el TreeMap de listaoficinas.
@@ -384,11 +410,12 @@ public class Empresa implements Serializable {
 	 */
 	public void BorraVehiculo(String matricula)
 	{
-		listamotos.remove(matricula);
-		listacelect.remove(matricula);
-		listaccomb.remove(matricula);
-		listafurgonetas.remove(matricula);
 		listavehiculos.remove(matricula);
+	}
+	
+	public void BorraCocheAlquilado(String matricula)
+	{
+		vehiculosalquilados.remove(matricula);
 	}
 	
 	/**
@@ -1013,6 +1040,20 @@ public class Empresa implements Serializable {
 	 */
 	public void setListacelect(TreeMap<String, Cocheelectrico> listacelect) {
 		this.listacelect = listacelect;
+	}
+
+	/**
+	 * @return the historialalquileres
+	 */
+	public TreeMap<String, Alquiler> getHistorialalquileres() {
+		return historialalquileres;
+	}
+
+	/**
+	 * @param historialalquileres the historialalquileres to set
+	 */
+	public void setHistorialalquileres(TreeMap<String, Alquiler> historialalquileres) {
+		this.historialalquileres = historialalquileres;
 	}
 
 

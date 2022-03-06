@@ -3,6 +3,7 @@ import mismetodosgenerales.*;
 import clasesinstanciables.*;
 import excepciones.LongitudNoValidaException;
 import logica_de_negocio.Mantenimiento;
+import logica_de_negocio.MetodosAlquileres;
 import metodosinterfazusuario.MetodosConcretos;
 import java.util.ArrayList;
 public class Menus {
@@ -99,11 +100,11 @@ public class Menus {
 		opcion=interfazusuario.MenuInt("OPCIONES", opciones, 1, 2);
 		if (opcion==1)
 		{
-			//TODO METODO.ALQUILER
+			empresa.AñadeAlquiler(MetodosAlquileres.RealizaAlquiler(empresa));
 		}
 		else 
 		{
-			//TODO METODO.DEVOLUCION
+			MetodosAlquileres.RealizarDevolucion(empresa);
 		}
 	}
 	
@@ -123,7 +124,9 @@ public class Menus {
 		opciones.add("MOSTRAR CATEGORIAS");
 		opciones.add("MOSTRAR LISTA MOTOS");
 		opciones.add("MOSTRAR LISTA FURGONETAS");
-		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 10);
+		opciones.add("MOSTRAR VEHICULOS ALQUILADOS");
+		opciones.add("MOSTRAR HISTORIAL DE ALQUILERES");
+		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 12);
 		switch (opcion) {
 		case 1:
 			//TODO METODO.MUESTRA_SEGUN_FECHA
@@ -154,6 +157,12 @@ public class Menus {
 			break;
 		case 10:
 			MetodosConcretos.MostrarListaFurgonetas(empresa);
+			break;
+		case 11:
+			MetodosConcretos.MostrarListaVehiculosAlquilados(empresa);
+			break;
+		case 12:
+			MetodosConcretos.MostrarHistorialAlquileres(empresa);
 			break;
 		}
 

@@ -58,6 +58,31 @@ public class Moto extends Electrico  implements Serializable {
 		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+cilindrada+"cm3 - Carnet("+carnetrequerido.getTipo()+") - Moto.";
 	}
 	
+	@Override
+	public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto)
+	{
+		double preciofinal=0;
+		double preciobase=10;
+		//se multiplica por 15 por ser electrico y 10 por ser moto 
+		double incrementoelect=(15*preciobase)/100;
+		//precio base mas incremento
+		double precionuevo=preciobase+incrementoelect;
+		//al precio ya incrementado se le suma el recargo correspondiente por categoria
+		double importerecargo=(recargo*precionuevo)/100;
+		double preciotrasrecargo=precionuevo+importerecargo;
+		//si es oficina de aeropuerto se le suma un recargo del 10% y se multiplica por los dias alquilado
+		if (ofiaeropuerto==true)
+		{
+			double importe=(10*preciotrasrecargo)/100;
+			double preciototal=importe+preciotrasrecargo;
+			preciofinal=preciototal*diasalquilado;
+		}
+		else
+		{
+			preciofinal=preciotrasrecargo*diasalquilado;
+		}	
+		return preciofinal;	
+	}
 	
 	//GETTERS Y SETTERS
 	/**

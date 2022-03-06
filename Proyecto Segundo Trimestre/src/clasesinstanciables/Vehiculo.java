@@ -132,6 +132,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		return matricula+" - "+nbastidor+" - "+marca+" - "+" - "+modelo+" - "+color+" - "+kms+"kms - ";
 	}
 	
+	abstract public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto);
 	//GETTERS Y SETTERS
 	
 	/**
