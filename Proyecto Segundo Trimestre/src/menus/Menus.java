@@ -46,7 +46,10 @@ public class Menus {
 		while(opcion!=4);
 	}
 	
-
+	/**
+	 * Metodo que muestra el menu de mantenimiento y te lleva a los distintos tipos de mantenimiento.
+	 * @param empresa
+	 */
 	public static void MenuMantenimiento(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -90,7 +93,10 @@ public class Menus {
 		
 	}
 	
-	
+	/**
+	 * Metodo que muestra el menu de los alquileres y te lleva a su correspondiente metodo.
+	 * @param empresa
+	 */
 	public static void MenuAlquileres(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -104,68 +110,70 @@ public class Menus {
 		}
 		else 
 		{
-			MetodosAlquileres.RealizarDevolucion(empresa);
+			MetodosConcretos.RealizarDevolucion(empresa);
 		}
 	}
 	
 	
-	
+	/**
+	 * Metodo que muestra el menu de los informes y te lleva a su correspondiente metodo.
+	 * @param empresa
+	 */
 	public static void MenuInformes(Empresa empresa)
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
-		opciones.add("ALQUILERES REALIZADOS SEGUN FECHA");
-		opciones.add("ALQUILERES REALIZADOS SEGUN VEHICULO");
-		opciones.add("LISTADO DE STOCK");
-		opciones.add("MOSTRAR PLANTILLA");
-		opciones.add("MOSTRAR CLIENTES");
-		opciones.add("MOSTRAR TIPOS DE CARNET");
-		opciones.add("MOSTRAR LISTA DE OFICINAS");
-		opciones.add("MOSTRAR CATEGORIAS");
-		opciones.add("MOSTRAR LISTA MOTOS");
-		opciones.add("MOSTRAR LISTA FURGONETAS");
-		opciones.add("MOSTRAR VEHICULOS ALQUILADOS");
-		opciones.add("MOSTRAR HISTORIAL DE ALQUILERES");
-		opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 12);
-		switch (opcion) {
-		case 1:
-			MetodosConcretos.MostrarAlqSegunFechas(empresa);
-			break;
-		case 2:
-			MetodosConcretos.MostrarAlqSegunVehiculo(empresa);
-			break;
-		case 3:
-			MetodosConcretos.MostrarStockVehiculos(empresa);	
-			break;
-		case 4:
-			MetodosConcretos.MostrarPlantilla(empresa);
-			break;
-		case 5:
-			//TODO METODO.MUESTRA_CLIENTES
-			break;
-		case 6:
-			MetodosConcretos.MostrarTiposCarnet(empresa);
-			break;
-		case 7:
-			MetodosConcretos.MostrarListaOficinas(empresa);
-			break;
-		case 8:
-			MetodosConcretos.MostrarListaCategorias(empresa);
-			break;
-		case 9:
-			MetodosConcretos.MostrarListaMotos(empresa);
-			break;
-		case 10:
-			MetodosConcretos.MostrarListaFurgonetas(empresa);
-			break;
-		case 11:
-			MetodosConcretos.MostrarListaVehiculosAlquilados(empresa);
-			break;
-		case 12:
-			MetodosConcretos.MostrarHistorialAlquileres(empresa);
-			break;
-		}
-
+		
+			opciones.add("ALQUILERES REALIZADOS SEGUN FECHA");
+			opciones.add("ALQUILERES REALIZADOS SEGUN VEHICULO");
+			opciones.add("LISTADO DE STOCK");
+			opciones.add("MOSTRAR PLANTILLA");
+			opciones.add("MOSTRAR CLIENTES");
+			opciones.add("MOSTRAR TIPOS DE CARNET");
+			opciones.add("MOSTRAR LISTA DE OFICINAS");
+			opciones.add("MOSTRAR CATEGORIAS");
+			opciones.add("MOSTRAR LISTA MOTOS");
+			opciones.add("MOSTRAR LISTA FURGONETAS");
+			opciones.add("MOSTRAR VEHICULOS ALQUILADOS");
+			opciones.add("MOSTRAR HISTORIAL DE ALQUILERES");
+			opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 12);
+			switch (opcion) {
+			case 1:
+				MetodosConcretos.MostrarAlqSegunFechas(empresa);
+				break;
+			case 2:
+				MetodosConcretos.MostrarAlqSegunVehiculo(empresa);
+				break;
+			case 3:
+				MetodosConcretos.MostrarStockVehiculos(empresa);	
+				break;
+			case 4:
+				MetodosConcretos.MostrarPlantilla(empresa);
+				break;
+			case 5:
+				MetodosConcretos.MostrarClientesHabituales(empresa);
+				break;
+			case 6:
+				MetodosConcretos.MostrarTiposCarnet(empresa);
+				break;
+			case 7:
+				MetodosConcretos.MostrarListaOficinas(empresa);
+				break;
+			case 8:
+				MetodosConcretos.MostrarListaCategorias(empresa);
+				break;
+			case 9:
+				MetodosConcretos.MostrarListaMotos(empresa);
+				break;
+			case 10:
+				MetodosConcretos.MostrarListaFurgonetas(empresa);
+				break;
+			case 11:
+				MetodosConcretos.MostrarListaVehiculosAlquilados(empresa);
+				break;
+			case 12:
+				MetodosConcretos.MostrarHistorialAlquileres(empresa);
+				break;
+			}	
 	}
-
 }

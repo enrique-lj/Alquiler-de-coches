@@ -272,14 +272,17 @@ public class Empresa implements Serializable {
 	{
 		return listacategorias.get(codcategoria);
 	}
-	
+	/**
+	 * Metodo que se encarga de añadir un alquiler a la lista de alquileres
+	 * @param alquiler
+	 */
 	public void AñadeAlquiler(Alquiler alquiler)
 	{
 		historialalquileres.put(alquiler.getCodalquiler(), alquiler);
 	}
 	
 	/**
-	 * 
+	 * Metodo que se encarga de añadir un vehiculo alquilado a la lista de vehiculos alquilados
 	 * @param vehiculo
 	 */
 	public void AñadeVehiculoAlquilado(Vehiculo vehiculo)
@@ -290,9 +293,8 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosCliente para introducir los datos
 	 * en un objeto de tipo cliente y éste introducirlo en el TreeMap de listaclientes.
 	 */
-	public void AñadeCliente(Empresa empresa) 
+	public void AñadeCliente(Empresa empresa,Cliente c) 
 	{
-		Cliente c=MetodosConcretos.PideDatosCliente(empresa);
 		listaclientes.put(c.getDni(), c);
 	}
 	/**
@@ -326,8 +328,7 @@ public class Empresa implements Serializable {
 		tiposdecarnet.put(carnet.getTipo(), carnet);
 	}
 	/**
-	 * Metodo que se encarga de crear un objeto de tipo vehiculo, para introducir este
-	 * objeto en el TreeMap de tiposdecarnet.
+	 * Metodo que se encarga de añadir un objeto tipo moto a las listas de lista de motos y la de stock de vehiculos
 	 * @param tipo
 	 * @param descripcion
 	 */
@@ -337,25 +338,44 @@ public class Empresa implements Serializable {
 		listamotos.put(moto.getMatricula(), moto);
 		listavehiculos.put(moto.getMatricula(), moto);
 	}
+	/**
+	 * Metodo que se encarga de añadir un objeto tipo coche electrico a las listas de lista de motos y la de stock de vehiculos
+	 * @param tipo
+	 * @param descripcion
+	 */
 	public void AñadeCocheElec(Empresa empresa) 
 	{
 		Cocheelectrico celect=MetodosConcretos.PideDatosCocheElec(empresa);
 		listacelect.put(celect.getMatricula(), celect);
 		listavehiculos.put(celect.getMatricula(), celect);
 	}
+	/**
+	 * Metodo que se encarga de añadir un objeto tipo coche combustion a las listas de lista de motos y la de stock de vehiculos
+	 * @param tipo
+	 * @param descripcion
+	 */
 	public void AñadeCocheComb(Empresa empresa) 
 	{
 		Cochecomb ccomb=MetodosConcretos.PideDatosCocheComb(empresa);
 		listaccomb.put(ccomb.getMatricula(), ccomb);
 		listavehiculos.put(ccomb.getMatricula(), ccomb);
 	}
+	/**
+	 * Metodo que se encarga de añadir un objeto tipo furgoneta a las listas de lista de motos y la de stock de vehiculos
+	 * @param tipo
+	 * @param descripcion
+	 */
 	public void AñadeFurgoneta(Empresa empresa) 
 	{
 		Furgoneta furgoneta=MetodosConcretos.PideDatosFurgoneta(empresa);
 		listafurgonetas.put(furgoneta.getMatricula(), furgoneta);
 		listavehiculos.put(furgoneta.getMatricula(), furgoneta);
 	}
-	
+	/**
+	 * Metodo que se encarga de añadir un vehiculo a la lista de stock de vehiculos
+	 * @param empresa
+	 * @param objeto tipo vehiculo
+	 */
 	public void AñadeVehiculo(Empresa empresa,Vehiculo v)
 	{
 		listavehiculos.put(v.getMatricula(), v);
@@ -412,7 +432,10 @@ public class Empresa implements Serializable {
 	{
 		listavehiculos.remove(matricula);
 	}
-	
+	/**
+	 * Metodo que se encarga de borrar un vehiculo alquilado de la lista de vehiculos alquilados
+	 * @param matricula
+	 */
 	public void BorraCocheAlquilado(String matricula)
 	{
 		vehiculosalquilados.remove(matricula);
@@ -462,14 +485,24 @@ public class Empresa implements Serializable {
 				break;	
 		}
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de un carnet. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param  Un string con la clave de la categoria
+	 * 
+	 */
 	public void ModificarCarnet(String tipo)
 	{
 		Carnet carnet=BuscaCarnet(tipo);
 		carnet.setDescripcion(interfazusuario.PideCadenaValidada(300, "Introduzca una descripción: "));
 		tiposdecarnet.put(tipo, carnet);
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de una categoria. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param  Un string con la clave de la categoria
+	 * @throws LongitudNoValidaException
+	 */
 	public void ModificarCategoria(String codcategoria)throws LongitudNoValidaException
 	{
 		Categoria categoria=BuscaCategoria(codcategoria);
@@ -490,7 +523,12 @@ public class Empresa implements Serializable {
 		}
 	}
 	
-	
+	/**
+	 * Metodo que sirve para modificar los valores de un empleado. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param  Un dni
+	 * @throws LongitudNoValidaException
+	 */
 	public void ModificarEmpleado(String dni) throws LongitudNoValidaException
 	{
 		Empleado empleado=BuscaEmpleado(dni);
@@ -529,7 +567,13 @@ public class Empresa implements Serializable {
 				break;
 		}
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de una moto. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param codigoofi Una moto
+	 * @param codigoofi Un string con la matricula
+	 * @throws LongitudNoValidaException,ValorNoValidoException
+	 */
 	public void ModificarMoto(Moto moto,String matricula)throws LongitudNoValidaException,ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -602,7 +646,13 @@ public class Empresa implements Serializable {
 		}
 		
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de un coche electrico. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param codigoofi Un coche electrico
+	 *  @param codigoofi Un string con la matricula
+	 * @throws LongitudNoValidaException,ValorNoValidoException
+	 */
 	public void ModificarCocheElect(Cocheelectrico celect,String matricula)throws LongitudNoValidaException,ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -672,7 +722,13 @@ public class Empresa implements Serializable {
 			break;
 		}
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de un coche de combustion. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param codigoofi Un objeto coche combustion
+	 *  @param codigoofi Un string con la matricula
+	 * @throws LongitudNoValidaException,ValorNoValidoException
+	 */
 	public void ModificarCocheComb(Cochecomb ccomb,String matricula)throws LongitudNoValidaException,ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -748,7 +804,13 @@ public class Empresa implements Serializable {
 		
 		}
 	}
-	
+	/**
+	 * Metodo que sirve para modificar los valores de una furgoneta. Muestra un menu donde el usuario elige que desea modificar, 
+	 * modificando el contenido a traves de los setters.
+	 * @param codigoofi Un objeto furgoneta
+	 * @param codigoofi Un string con la clave de la furgoneta
+	 * @throws LongitudNoValidaException, ValorNoValidoException
+	 */
 	public void ModificarFurgoneta(Furgoneta furgoneta,String matricula)throws LongitudNoValidaException,ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
@@ -826,7 +888,14 @@ public class Empresa implements Serializable {
 		
 		}	
 	}
-	
+	/**
+	 * Metodo que sirve de conexion con los metodos de modificar los distintos vehiculos,
+	 * pasandole una matricula, busca el vehiculo en el stock y te devuelve el tipo de vehiculo que es,
+	 * y en funcion del tipo que sea te lleva a un modificar u otro
+	 * @param matricula
+	 * @throws LongitudNoValidaException
+	 * @throws ValorNoValidoException
+	 */
 	public void ModificarVehiculo(String matricula) throws LongitudNoValidaException, ValorNoValidoException
 	{
 		switch (BuscaVehiculo(matricula).getTipovehiculo())

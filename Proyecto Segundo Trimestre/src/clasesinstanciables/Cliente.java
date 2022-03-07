@@ -48,7 +48,7 @@ public class Cliente extends Persona implements Serializable {
 	}*/
 	public String toString()
 	{
-		return getDni()+" - "+NombreCompleto()+", con carnet "+tipocarnet.getTipo();
+		return "Socio Nº "+ntarjetacliente+" - "+DatosPersona();
 	}
 	
 	//GETTERS Y SETTERS

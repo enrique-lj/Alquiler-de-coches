@@ -22,7 +22,7 @@ public class Mantenimiento {
 			ArrayList<String>opciones=new ArrayList<String>();
 			int opcion;
 			String opc;
-			opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la oficina: ");
+			opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la oficina a buscar: ");
 			if(empresa.BuscaOficina(opc)!=null)
 			{
 				opciones.clear();
@@ -136,7 +136,7 @@ public class Mantenimiento {
 			ArrayList<String>opciones=new ArrayList<String>();
 			int opcion;
 			String opc;
-			opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la categoria: ");
+			opc=interfazusuario.PideCadenaValidada(8,"Introduzca el codigo de la categoria a buscar: ");
 			if(empresa.BuscaCategoria(opc)!=null)
 			{
 				opciones.clear();
@@ -245,7 +245,7 @@ public class Mantenimiento {
 		String opc;
 		do
 		{
-			opc=interfazusuario.PideCadenaValidada(7,"Introduzca la matricula: ");
+			opc=interfazusuario.PideCadenaValidada(7,"Introduzca la matricula del vehiculo que desea buscar: ");
 			if(empresa.BuscaVehiculo(opc)!=null)
 			{
 				opciones.clear();

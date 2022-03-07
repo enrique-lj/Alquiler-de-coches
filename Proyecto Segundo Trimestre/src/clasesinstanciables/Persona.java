@@ -106,8 +106,16 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	 */
 	public String NombreCompleto()
 	{
-		String nombrecompleto=ap1+" "+ap2+" "+nombre;
+		String nombrecompleto=ap1+" "+ap2+", "+nombre;
 		return nombrecompleto;
+	}
+	/**
+	 * Metodo que devuelve el dni mas el nombre completo
+	 * @return
+	 */
+	public String DatosPersona()
+	{
+		return dni+" - "+NombreCompleto();
 	}
 	//GETTERS Y SETTERS
 	/**

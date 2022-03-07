@@ -1,8 +1,12 @@
 package metodosinterfazusuario;
 import mismetodosgenerales.*;
 import clasesinstanciables.*;
+import comparadores.NsocioComparator;
 import excepciones.*;
+import logica_de_negocio.MetodosAlquileres;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.Map.Entry;
@@ -50,8 +54,9 @@ public class MetodosConcretos {
 		{
 			try
 			{
-			int _ntarjetacliente=interfazusuario.PideNumeroValidado(1, 100000, "Introduzca su nº de cliente habitual: ");
+			int _ntarjetacliente=interfazusuario.PideNumeroValidado(1,100000,"Introduzca su Nº de socio: ");
 			_cliente.setNtarjetacliente(_ntarjetacliente);
+			empresa.AñadeCliente(empresa,_cliente);
 			}
 			catch (ValorNoValidoException e)
 			{
@@ -631,7 +636,10 @@ public class MetodosConcretos {
 		}
 		return _vehiculo;	
 	}*/
-	
+	/**
+	 * Metodo que pide los datos de una empresa.
+	 * @return Devuelve un objeto empresa
+	 */
 	public static Empresa PideDatosEmpresa()
 	{
 		Empresa empresa=null;
@@ -650,7 +658,10 @@ public class MetodosConcretos {
 		}
 		return empresa;
 	}
-	
+	/**
+	 * Metodo que pide los datos de un carnet
+	 * @return Devuelve un objeto Carnet
+	 */
 	public static Carnet PideDatosCarnet()
 	{
 		Carnet carnet=null;
@@ -662,7 +673,10 @@ public class MetodosConcretos {
 		return carnet;
 		
 	}
-	
+	/**
+	 * Metodo que muestra la lista de empleados de la empresa.
+	 * @param empresa
+	 */
 	public static void MostrarPlantilla(Empresa empresa)
 	{
 		for(Entry<String, Empleado> item:empresa.getPlantilla().entrySet())
@@ -672,7 +686,10 @@ public class MetodosConcretos {
 			System.out.println(empleado);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra una lista con los tipos de carnet de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarTiposCarnet(Empresa empresa)
 	{
 		for(Entry<String, Carnet> item:empresa.getTiposdecarnet().entrySet())
@@ -682,7 +699,10 @@ public class MetodosConcretos {
 			System.out.println(carnet);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra la lista de las oficinas de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarListaOficinas(Empresa empresa)
 	{
 		for(Entry<String, Oficina> item:empresa.getListaoficinas().entrySet())
@@ -692,7 +712,10 @@ public class MetodosConcretos {
 			System.out.println(oficina);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra el stock de vehiculos e la empresa
+	 * @param empresa
+	 */
 	public static void MostrarStockVehiculos(Empresa empresa)
 	{
 		//empresa.RellenarStock(empresa);
@@ -703,7 +726,10 @@ public class MetodosConcretos {
 			System.out.println(vehiculo);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra una lista con las categorias de los vehiculos
+	 * @param empresa
+	 */
 	public static void MostrarListaCategorias(Empresa empresa)
 	{
 		for(Entry<String, Categoria> item:empresa.getListacategorias().entrySet())
@@ -713,7 +739,10 @@ public class MetodosConcretos {
 			System.out.println(categoria);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra una lista con la motos de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarListaMotos(Empresa empresa)
 	{
 		for(Entry<String, Moto> item:empresa.getListamotos().entrySet())
@@ -723,7 +752,10 @@ public class MetodosConcretos {
 			System.out.println(moto);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra una lista de las furgonetas de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarListaFurgonetas(Empresa empresa)
 	{
 		for(Entry<String, Furgoneta> item:empresa.getListafurgonetas().entrySet())
@@ -733,7 +765,10 @@ public class MetodosConcretos {
 			System.out.println(furgoneta);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra la lista de los vehiculos alquilados de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarListaVehiculosAlquilados(Empresa empresa)
 	{
 		for(Entry<String, Vehiculo> item:empresa.getVehiculosalquilados().entrySet())
@@ -743,7 +778,10 @@ public class MetodosConcretos {
 			System.out.println(vehiculo);
 		}
 	}
-	
+	/**
+	 * Metodo que muestra el historial de alquileres completo de la empresa
+	 * @param empresa
+	 */
 	public static void MostrarHistorialAlquileres(Empresa empresa)
 	{
 		for(Entry<String, Alquiler> item:empresa.getHistorialalquileres().entrySet())
@@ -753,7 +791,10 @@ public class MetodosConcretos {
 			System.out.println(alquiler);
 		}
 	}
-	
+	/**
+	 * Metodo que pide una matricula y muestra los alquileres de ese vehiculo
+	 * @param empresa
+	 */
 	public static void MostrarAlqSegunVehiculo(Empresa empresa)
 	{
 		String matricula=interfazusuario.PideCadenaValidada(7, "MATRICULA: ");
@@ -766,7 +807,10 @@ public class MetodosConcretos {
 			}
 		}
 	}
-	
+	/**
+	 * Metodo que pide dos fechas y muestra los alquileres realizados entre las dos fechas
+	 * @param empresa
+	 */
 	public static void MostrarAlqSegunFechas(Empresa empresa)
 	{
 		GregorianCalendar primerafecha=interfazusuario.PideFechaValidada("INTRODUZCA LA PRIMERA FECHA: ");
@@ -780,4 +824,163 @@ public class MetodosConcretos {
 			}
 		}
 	}
+	
+	public static void MostrarClientesHabituales(Empresa empresa)
+	{
+		ArrayList<Cliente>listaclientes=new ArrayList<Cliente>(empresa.getListaclientes().values());
+		Collections.sort(listaclientes,new NsocioComparator());
+		for(Cliente cliente:listaclientes)
+		{
+			System.out.println(cliente);
+		}
+	}
+	/**
+	 * Metodo que se encarga de bucar los vehiculos por categoria, recorre el arraylist de vehiculos disponibles
+	 * comparando los codigos de las categorias de los vehiculos, con un codigo de categoria que le pasamos como
+	 * parametro, los muestra por pantalla
+	 * @param empresa
+	 * @param codigocategoria
+	 * @param vehiculosdisponibles un arraylist del stock de vehiculos disponibles
+	 * @return devuelve un vehiculo
+	 */
+	public static Vehiculo BuscaVehiculoPorCategoria(Empresa empresa,String codigocategoria,ArrayList<Vehiculo>vehiculosdisponibles)
+	{
+		Vehiculo vehiculo=null;
+		ArrayList<Vehiculo>vehiculosvalidos=new ArrayList<Vehiculo>();
+		//bucle que recorre los vehiculos disponibles y va buscando el que tenga el mismo codigo de categoria
+		for (int i=0; i<vehiculosdisponibles.size();i++)
+		{
+			if (vehiculosdisponibles.get(i).getCategoria().getCodcategoria().equals(codigocategoria))
+			{
+				//si encuentra uno lo añade al array de vehiculos validos
+				vehiculosvalidos.add(vehiculosdisponibles.get(i));
+			}
+		}
+		//bucle que imprime por pantalla el array list de vehiculos validos
+		for (int i=0; i<vehiculosvalidos.size();i++)
+		{
+			System.out.println((i+1)+".-"+(vehiculosvalidos.get(i)));
+		}
+		
+		int opcion=interfazusuario.PideNumeroValidado(0, vehiculosvalidos.size()+1,"ESCOJA UN VEHICULO");//HAY QUE AJUSTAR ESTO XK ME SALE FUERA DE RANGO
+		opcion=opcion-1;
+		//bucle que sirve para buscar la opcion elegida entre los vehiculos validos
+		for (int i=0; i<vehiculosvalidos.size();i++)
+		{
+			vehiculo=vehiculosvalidos.get(opcion);
+		}
+		return vehiculo;
+	}
+	/**
+	 * Metodo que se encarga de bucar los vehiculos por oficina, recorre el arraylist de vehiculos disponibles
+	 * comparando los codigos de las oficinas de los vehiculos, con un codigo de la oficina que le pasamos como
+	 * parametro, los muestra por pantalla
+	 * @param empresa
+	 * @param codigocategoria
+	 * @param vehiculosdisponibles un arraylist del stock de vehiculos disponibles
+	 * @return devuelve un vehiculo
+	 */
+	public static Vehiculo BuscaVehiculoPorOficina(Empresa empresa,String codigoofi,ArrayList<Vehiculo>vehiculosdisponibles)
+	{
+		Vehiculo vehiculo=null;
+		ArrayList<Vehiculo>vehiculosvalidos=new ArrayList<Vehiculo>();
+		//bucle que recorre los vehiculos disponibles y va buscando el que tenga el mismo codigo de oficina
+		for (int i=0; i<vehiculosdisponibles.size();i++)
+		{
+			if (vehiculosdisponibles.get(i).getUbicacion().getCodigoofi().equals(codigoofi))
+			{
+				//si encuentra uno lo añade al array de vehiculos validos
+				vehiculosvalidos.add(vehiculosdisponibles.get(i));
+			}
+		}
+		//bucle que imprime por pantalla el array list de vehiculos validos
+		for (int i=0; i<vehiculosvalidos.size();i++)
+		{
+			System.out.println((i+1)+".-"+(vehiculosvalidos.get(i)));
+		}
+		int opcion=interfazusuario.PideNumeroValidado(0, vehiculosvalidos.size()+1,"ESCOJA UN VEHICULO");//HAY QUE AJUSTAR ESTO XK ME SALE FUERA DE RANGO
+		opcion=opcion-1;
+		//bucle que sirve para buscar la opcion elegida entre los vehiculos validos
+		for (int i=0; i<vehiculosvalidos.size();i++)
+		{
+			vehiculo=vehiculosvalidos.get(opcion);
+		}
+		return vehiculo;
+	}
+	
+	/**
+	 * Metodo que se encarga de realizar la devolucion de un vehiculo.
+	 * @param empresa
+	 */
+	public static void RealizarDevolucion(Empresa empresa)
+	{
+		//primero pedimos el codigo del alquiler
+		String _codalquiler=interfazusuario.PideCadenaValidada(10, "Introduzca el codigo del alquiler: ");
+		//con ese codigo buscamos el alquiler
+		Alquiler a=empresa.BuscaAlquiler(_codalquiler);
+		Empleado _empleadodev=null;
+		Empleado _empleadoaux;
+		do
+		{
+			String _dni=interfazusuario.PideDniValidad();
+			 _empleadoaux=empresa.BuscaEmpleado(_dni);
+			/*creo un objeto empleadoaux para poder sacarle el codigo de su oficina y asi
+			 * poder compararlo con el codigo de la oficina del objeto alquiler*/
+			if (_empleadoaux.getOfitrabajador().getCodigoofi().equals(a.get_lugaralquiler().getCodigoofi()))
+			{
+				_empleadodev=_empleadoaux;//si son iguales entonces le paso el empleado a mi empleado devolucion
+			}
+			else
+			{
+				System.out.println("Usuario u oficina incorrecto.");
+				System.out.println("Es necesario que el DNI del empleado corresponda a su oficina.");
+			}
+		}//se repite mietras que el cofigo de la oficina del alquiler y del empleado no sean iguales
+		while (!(_empleadoaux.getOfitrabajador().getCodigoofi().equals(a.get_lugaralquiler().getCodigoofi())));
+		//pedimos la fecha de la devolucion, necesaria para calcular el importe total
+		GregorianCalendar _fdevolucion;
+		do
+		{
+			_fdevolucion=interfazusuario.PideFechaValidada("Fecha de devolución: ");
+			if (_fdevolucion.compareTo(a.get_finialquiler())<0)
+			{
+				System.out.println("Fecha no valida.");
+			}
+		}
+		while (_fdevolucion.compareTo(a.get_finialquiler())<0);
+		//Calculamos los dias transcurridos entre las dos fechas
+		//pasamos la fecha final a milisegundos y hacemos lo mismo con la fecha de inicio
+		long finMS=_fdevolucion.getTimeInMillis();
+		long inicioMS=a.get_finialquiler().getTimeInMillis();
+		//restamos los resultados, y lo pasamos a dias
+		int diasalquilado= (int)((Math.abs(finMS-inicioMS))/(1000*60*60*24));
+		//Sacamos el tipo de vehiculo que es, para pasarselo al metodo de calcular precio;
+		int tipo=a.get_vehiculo().getTipovehiculo();
+		//llamamos al metodo calcular precio previsto para calcular el precio
+		double _preciofinal=MetodosAlquileres.CalcularPrecioPrevisto(empresa,a.get_vehiculo().getMatricula(), diasalquilado, tipo);
+		//pedimos los kilometros que ha recorrido para asi modificarlo
+		int _kmsrecorridos=interfazusuario.PideNumeroValidado(1, 1000000, "Introduzca los kilometros que ha recorrido: ");
+		try {
+			//modificamos los vehiculos
+			MetodosAlquileres.ModificacionesDevolucion(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo,a.get_lugaralquiler());
+		} catch (ValorNoValidoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//como ya se ha hecho la devolucion, borramos el vehiculo de los vehiculos alquilados
+		empresa.BorraCocheAlquilado(a.get_vehiculo().getMatricula());
+		//le mandamos los datos de la devolucion a traves de los setters
+		a.setEmpleadodev(_empleadodev);
+		a.setFdevolucion(_fdevolucion);
+		a.setKmsrecorridos(_kmsrecorridos);
+		a.setPreciofinal(_preciofinal);
+	}
+	/*
+	public static void MostrarFecha(GregorianCalendar fecha)
+	{
+		System.out.println(fecha.getTime().getDate()+"/"+fecha.getTime().getMonth()+"/"+(_ffinalquiler.getTime().getYear()+1900);
+	}*/
+	
+	
+	
 }

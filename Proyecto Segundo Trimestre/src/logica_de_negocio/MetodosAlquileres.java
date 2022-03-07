@@ -41,12 +41,12 @@ public class MetodosAlquileres {
 		if (opcion==1)
 		{
 			codigoofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
-			vehiculo=BuscaVehiculoPorOficina(empresa, codigoofi, vehiculosdisponibles);
+			vehiculo=MetodosConcretos.BuscaVehiculoPorOficina(empresa, codigoofi, vehiculosdisponibles);
 		}
 		else
 		{
 			codigocat=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
-			vehiculo=BuscaVehiculoPorCategoria(empresa, codigocat, vehiculosdisponibles);
+			vehiculo=MetodosConcretos.BuscaVehiculoPorCategoria(empresa, codigocat, vehiculosdisponibles);
 		}
 		empresa.AñadeVehiculoAlquilado(vehiculo);//AQUI AÑADIMOS EL VEHICULO A LA LISTA DE VEHICULOS ALQUILADOS
 		//HAY QUE CREAR UNA LISTA DE STOCK DISPONIBLE Y CAMBIARLA POR LAS LISTAS DE ABAJO (BUSCA VEHICULO POR
@@ -75,53 +75,15 @@ public class MetodosAlquileres {
 		return alquiler;
 	}
 	
-	public static void RealizarDevolucion(Empresa empresa)
-	{
-		String _codalquiler=interfazusuario.PideCadenaValidada(10, "Introduzca el codigo del alquiler: ");
-		Alquiler a=empresa.BuscaAlquiler(_codalquiler);
-		Empleado _empleadodev=null;
-		Empleado _empleadoaux;
-		do
-		{
-			String _dni=interfazusuario.PideDniValidad();
-			 _empleadoaux=empresa.BuscaEmpleado(_dni);
-			if (_empleadoaux.getOfitrabajador().getCodigoofi().equals(a.get_lugaralquiler().getCodigoofi()))
-			{
-				_empleadodev=_empleadoaux;
-			}
-			else
-			{
-				System.out.println("Usuario u oficina incorrecto.");
-				System.out.println("Es necesario que el DNI del empleado corresponda a su oficina.");
-			}
-		}
-		while (!(_empleadoaux.getOfitrabajador().getCodigoofi().equals(a.get_lugaralquiler().getCodigoofi())));
-		
-		GregorianCalendar _fdevolucion=interfazusuario.PideFechaValidada("Fecha de devolución: ");
-		//Calculamos los dias transcurridos entre las dos fechas
-		//pasamos la fecha final a milisegundos y hacemos lo mismo con la fecha de inicio
-		long finMS=_fdevolucion.getTimeInMillis();
-		long inicioMS=a.get_finialquiler().getTimeInMillis();
-		//restamos los resultados, y lo pasamos a dias
-		int diasalquilado= (int)((Math.abs(finMS-inicioMS))/(1000*60*60*24));
-		//Sacamos el tipo de vehiculo que es, para pasarselo al metodo de calcular precio;
-		int tipo=a.get_vehiculo().getTipovehiculo();
-		double _preciofinal=CalcularPrecioPrevisto(empresa,a.get_vehiculo().getMatricula(), diasalquilado, tipo);
-		
-		int _kmsrecorridos=interfazusuario.PideNumeroValidado(1, 1000000, "Introduzca los kilometros que ha recorrido: ");
-		try {
-			ModificacionesDevolucion(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo,a.get_lugaralquiler());
-		} catch (ValorNoValidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		empresa.BorraCocheAlquilado(a.get_vehiculo().getMatricula());
-		a.setEmpleadodev(_empleadodev);
-		a.setFdevolucion(_fdevolucion);
-		a.setKmsrecorridos(_kmsrecorridos);
-		a.setPreciofinal(_preciofinal);
-	}
-	
+	/**
+	 * Metodo que te calcula el precio previsto del alquiler a traves del metodo de calcula importe, en funcion
+	 * del tipo de vehiculo que sea.
+	 * @param empresa
+	 * @param matricula
+	 * @param diasalquilado
+	 * @param tipo
+	 * @return
+	 */
 	public static double CalcularPrecioPrevisto(Empresa empresa,String matricula,int diasalquilado,int tipo)
 	{
 		double precio=0;
@@ -147,9 +109,18 @@ public class MetodosAlquileres {
 		return precio;
 	}
 	
+	/**
+	 * Metodo que se encarga de modificar los distintos vehiculos en funcion del tipo al que pertenezcan,
+	 * cambiando sus kms y su oficina en la devolucion y despues añadiendolo a la lista de stock
+	 * @param empresa
+	 * @param matricula
+	 * @param kmsrecorridos
+	 * @param tipo
+	 * @param ofidevolucion
+	 * @throws ValorNoValidoException
+	 */
 	public static void ModificacionesDevolucion(Empresa empresa,String matricula,int kmsrecorridos,int tipo,Oficina ofidevolucion)throws ValorNoValidoException
 	{
-		
 		switch (tipo)
 		{
 			case 1://COCHE ELECTRICO
@@ -179,54 +150,8 @@ public class MetodosAlquileres {
 		}
 	}
 
-	public static Vehiculo BuscaVehiculoPorOficina(Empresa empresa,String codigoofi,ArrayList<Vehiculo>vehiculosdisponibles)
-	{
-		Vehiculo vehiculo=null;
-		ArrayList<Vehiculo>vehiculosvalidos=new ArrayList<Vehiculo>();
-		for (int i=0; i<vehiculosdisponibles.size();i++)
-		{
-			if (vehiculosdisponibles.get(i).getUbicacion().getCodigoofi().equals(codigoofi))
-			{
-				vehiculosvalidos.add(vehiculosdisponibles.get(i));
-			}
-		}
-		for (int i=0; i<vehiculosvalidos.size();i++)
-		{
-			System.out.println((i+1)+".-"+(vehiculosvalidos.get(i)));
-		}
-		int opcion=interfazusuario.PideNumeroValidado(0, vehiculosvalidos.size()+1,"ESCOJA UN VEHICULO");//HAY QUE AJUSTAR ESTO XK ME SALE FUERA DE RANGO
-		opcion=opcion-1;
-		for (int i=0; i<vehiculosvalidos.size();i++)
-		{
-			vehiculo=vehiculosvalidos.get(opcion);
-		}
-		return vehiculo;
-	}
 	
 	
-	public static Vehiculo BuscaVehiculoPorCategoria(Empresa empresa,String codigocategoria,ArrayList<Vehiculo>vehiculosdisponibles)
-	{
-		Vehiculo vehiculo=null;
-		ArrayList<Vehiculo>vehiculosvalidos=new ArrayList<Vehiculo>();
-		for (int i=0; i<vehiculosdisponibles.size();i++)
-		{
-			if (vehiculosdisponibles.get(i).getCategoria().getCodcategoria().equals(codigocategoria))
-			{
-				vehiculosvalidos.add(vehiculosdisponibles.get(i));
-			}
-		}
-		for (int i=0; i<vehiculosvalidos.size();i++)
-		{
-			System.out.println((i+1)+".-"+(vehiculosvalidos.get(i)));
-		}
-		
-		int opcion=interfazusuario.PideNumeroValidado(0, vehiculosvalidos.size()+1,"ESCOJA UN VEHICULO");//HAY QUE AJUSTAR ESTO XK ME SALE FUERA DE RANGO
-		opcion=opcion-1;
-		for (int i=0; i<vehiculosvalidos.size();i++)
-		{
-			vehiculo=vehiculosvalidos.get(opcion);
-		}
-		return vehiculo;
-	}
+	
 	
 }

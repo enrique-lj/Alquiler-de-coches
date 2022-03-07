@@ -1,5 +1,8 @@
 package clasesinstanciables;
 import java.util.GregorianCalendar;
+
+import metodosinterfazusuario.MetodosConcretos;
+
 import java.io.Serializable;
 public class Alquiler implements Serializable{
 
@@ -58,13 +61,15 @@ public class Alquiler implements Serializable{
 	
 	//TODO METODOS
 	
+	@SuppressWarnings("deprecation")
 	public String toString()
 	{
 		return "CODIGO: "+codalquiler+" - VEHICULO: "+_vehiculo.getMatricula()+" - EMPLEADO: "+_empleado.getDni()+
-				" - CLIENTE: "+_cliente.getDni()+"; "+_cliente.NombreCompleto()+" - FECHA INCIO: "+_finialquiler+
-				" - FECHA FIN ALQUILER: "+_ffinalquiler+" - OFICINA DE DEVOLUCION: "+_lugaralquiler.getCodigoofi()+
-				" - PRECIO PREVISTO A PAGAR: "+precioprevisto;
-				
+				" - CLIENTE: "+_cliente.getDni()+"; "+_cliente.NombreCompleto()+" - FECHA INCIO: "+_finialquiler.getTime().getDate()+
+				"/"+_finialquiler.getTime().getMonth()+"/"+(_finialquiler.getTime().getYear()+1900)+
+				" - FECHA FIN ALQUILER: "+_ffinalquiler.getTime().getDate()+"/"+_ffinalquiler.getTime().getMonth()+
+				"/"+(_ffinalquiler.getTime().getYear()+1900)+" - OFICINA DE DEVOLUCION: "+_lugaralquiler.getCodigoofi()+
+				" - PRECIO PREVISTO A PAGAR: "+String.format("%.2f", precioprevisto)+"€";
 	}
 	
 	//GETTERS Y SETTERS
