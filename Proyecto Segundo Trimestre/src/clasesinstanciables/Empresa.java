@@ -461,26 +461,21 @@ public class Empresa implements Serializable {
 		{
 			case 1:
 				oficina.setDescripcion(interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la oficina: "));
-				listaoficinas.put(codigoofi, oficina);
 				break;
 			case 2:
 				oficina.setLocalidad(interfazusuario.PideCadenaValidada(75, "Introduzca la localidad en que se encuentra la oficina: "));
-				listaoficinas.put(codigoofi, oficina);
 				break;
 			case 3:
 				oficina.setProvincia(interfazusuario.PideCadenaValidada(35, "Introduzca la provincia en que se encuentra la oficina: "));
-				listaoficinas.put(codigoofi, oficina);
 				break;
 			case 4:
 				if (oficina.isOfiaeropuerto()==false)
 				{
 					oficina.setOfiaeropuerto(true);
-					listaoficinas.put(codigoofi, oficina);
 				}
 				else
 				{
 					oficina.setOfiaeropuerto(false);
-					listaoficinas.put(codigoofi, oficina);
 				}
 				break;	
 		}
@@ -495,7 +490,6 @@ public class Empresa implements Serializable {
 	{
 		Carnet carnet=BuscaCarnet(tipo);
 		carnet.setDescripcion(interfazusuario.PideCadenaValidada(300, "Introduzca una descripción: "));
-		tiposdecarnet.put(tipo, carnet);
 	}
 	/**
 	 * Metodo que sirve para modificar los valores de una categoria. Muestra un menu donde el usuario elige que desea modificar, 
@@ -514,12 +508,10 @@ public class Empresa implements Serializable {
 		if (opcion==1)
 		{
 			categoria.setDescripcion(interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la categoria: "));
-			listacategorias.put(codcategoria, categoria);
 		}
 		else
 		{
 			categoria.setRecargoalquileres(interfazusuario.PideNumeroValidado(1, 100000, "Introduzca el recargo del alquiler: "));
-			listacategorias.put(codcategoria, categoria);
 		}
 	}
 	
@@ -544,26 +536,21 @@ public class Empresa implements Serializable {
 		{
 			case 1:
 				empleado.setNombre(interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:"));
-				plantilla.put(dni, empleado);
 				break;
 			case 2:
 				empleado.setAp1(interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:"));
-				plantilla.put(dni, empleado);
 				break;
 			case 3:
 				empleado.setAp2(interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:"));
-				plantilla.put(dni, empleado);
 				break;
 			case 4:
 				empleado.setFaltaempresa(interfazusuario.PideFechaValidada("Introduzca la fecha de alta en la empresa: "));
-				plantilla.put(dni, empleado);
 				break;
 			case 5:
 				String _opcofi=null;
 				_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 				//aqui faltaria validar la opcion, por si introducen una oficina incorrecta
 				empleado.setOfitrabajador(BuscaOficina(_opcofi));
-				plantilla.put(dni, empleado);
 				break;
 		}
 	}
@@ -594,54 +581,43 @@ public class Empresa implements Serializable {
 		{
 		case 1:
 			moto.setMarca(interfazusuario.PideCadenaValidada(35, "Marca: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 2:
 			moto.setModelo(interfazusuario.PideCadenaValidada(35, "Modelo: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 3:
 			moto.setColor(interfazusuario.PideCadenaValidada(20, "Color: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 4:
 			moto.setFaltaoadqui(interfazusuario.PideFechaValidada("Fecha de adquisicion: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 5:
 			moto.setKms(interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 6:
 			String _codcategoria;
 			_codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
 			moto.setCategoria(BuscaCategoria(_codcategoria));
-			listamotos.put(matricula, moto);
 			break;
 		case 7:
 			String _opcofi=null;
 			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 			//aqui faltaria validar la opcion, por si introducen una oficina incorrecta
 			moto.setUbicacion(BuscaOficina(_opcofi));
-			listamotos.put(matricula, moto);
 			break;
 		case 8:
 			moto.setAutonomia(interfazusuario.PideNumeroValidado(1, 600, "Kms de autonomia: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 9:
 			moto.setTiempocarga(interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 10:
 			moto.setCilindrada(interfazusuario.PideNumeroValidado(1, 3000, "Cilindrada: "));
-			listamotos.put(matricula, moto);
 			break;
 		case 11:
 			String _opccarnet=null;
 			_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
 			moto.setCarnetrequerido(BuscaCarnet(_opccarnet));
-			listamotos.put(matricula, moto);
 			break;
 		}
 		
@@ -673,52 +649,41 @@ public class Empresa implements Serializable {
 		{
 		case 1:
 			celect.setMarca(interfazusuario.PideCadenaValidada(35, "Marca: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 2:
 			celect.setModelo(interfazusuario.PideCadenaValidada(35, "Modelo: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 3:
 			celect.setColor(interfazusuario.PideCadenaValidada(20, "Color: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 4:
 			celect.setFaltaoadqui(interfazusuario.PideFechaValidada("Fecha de adquisicion: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 5:
 			celect.setKms(interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 6:
 			String _codcategoria;
 			_codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
 			celect.setCategoria(BuscaCategoria(_codcategoria));
-			listacelect.put(matricula, celect);
 			break;
 		case 7:
 			String _opcofi=null;
 			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 			//aqui faltaria validar la opcion, por si introducen una oficina incorrecta
 			celect.setUbicacion(BuscaOficina(_opcofi));
-			listacelect.put(matricula, celect);
 			break;
 		case 8:
 			celect.setAutonomia(interfazusuario.PideNumeroValidado(1, 600, "Kms de autonomia: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 9:
 			celect.setTiempocarga(interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 10:
 			celect.setNplazas(interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: "));
-			listacelect.put(matricula, celect);
 			break;
 		case 11:
 			celect.setTipo(interfazusuario.PideCadenaValidada(15, "Tipo de coche: "));
-			listacelect.put(matricula, celect);
 			break;
 		}
 	}
@@ -750,56 +715,44 @@ public class Empresa implements Serializable {
 		{
 		case 1:
 			ccomb.setMarca(interfazusuario.PideCadenaValidada(35, "Marca: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 2:
 			ccomb.setModelo(interfazusuario.PideCadenaValidada(35, "Modelo: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 3:
 			ccomb.setColor(interfazusuario.PideCadenaValidada(20, "Color: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 4:
 			ccomb.setFaltaoadqui(interfazusuario.PideFechaValidada("Fecha de adquisicion: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 5:
 			ccomb.setKms(interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 6:
 			String _codcategoria;
 			_codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
 			ccomb.setCategoria(BuscaCategoria(_codcategoria));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 7:
 			String _opcofi=null;
 			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 			//aqui faltaria validar la opcion, por si introducen una oficina incorrecta
 			ccomb.setUbicacion(BuscaOficina(_opcofi));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 8:
 			ccomb.setPotencia(interfazusuario.PideNumeroValidado(1, 600, "Potencia: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 9:
 			ccomb.setConsumo(interfazusuario.PideNumeroValidado(1, 600, "Consumo: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 10:
 			ccomb.setNivemisiones(interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 11:
 			ccomb.setNplazas(interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		case 12:
 			ccomb.setTipo(interfazusuario.PideCadenaValidada(15, "Tipo de coche: "));
-			listaccomb.put(matricula, ccomb);
 			break;
 		
 		}
@@ -832,58 +785,46 @@ public class Empresa implements Serializable {
 		{
 		case 1:
 			furgoneta.setMarca(interfazusuario.PideCadenaValidada(35, "Marca: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 2:
 			furgoneta.setModelo(interfazusuario.PideCadenaValidada(35, "Modelo: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 3:
 			furgoneta.setColor(interfazusuario.PideCadenaValidada(20, "Color: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 4:
 			furgoneta.setFaltaoadqui(interfazusuario.PideFechaValidada("Fecha de adquisicion: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 5:
 			furgoneta.setKms(interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 6:
 			String _codcategoria;
 			_codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
 			furgoneta.setCategoria(BuscaCategoria(_codcategoria));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 7:
 			String _opcofi=null;
 			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 			//aqui faltaria validar la opcion, por si introducen una oficina incorrecta
 			furgoneta.setUbicacion(BuscaOficina(_opcofi));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 8:
 			furgoneta.setPotencia(interfazusuario.PideNumeroValidado(1, 600, "Potencia: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 9:
 			furgoneta.setConsumo(interfazusuario.PideNumeroValidado(1, 600, "Consumo: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 10:
 			furgoneta.setNivemisiones(interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 11:
 			furgoneta.setCapacidad(interfazusuario.PideNumeroValidadoDouble(1.00, 10.00, "Capacidad: "));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		case 12:
 			String _opccarnet=null;
 			_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
 			furgoneta.setCarnetrequerido(BuscaCarnet(_opccarnet));
-			listafurgonetas.put(matricula, furgoneta);
 			break;
 		
 		}	

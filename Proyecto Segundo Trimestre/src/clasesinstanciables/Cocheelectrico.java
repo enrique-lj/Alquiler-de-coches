@@ -57,7 +57,7 @@ public class Cocheelectrico extends Electrico implements Serializable{
 	 */
 	public String toString()
 	{
-		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche electrico.";
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo;
 	}
 	
 	@Override

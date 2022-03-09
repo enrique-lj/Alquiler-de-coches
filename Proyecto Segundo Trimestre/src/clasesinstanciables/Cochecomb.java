@@ -58,7 +58,7 @@ public class Cochecomb extends Combustion implements Serializable {
 	 */
 	public String toString()
 	{
-		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo+" - Coche combustión.";
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+nplazas+" plazas - "+tipo;
 	}
 	
 	@Override

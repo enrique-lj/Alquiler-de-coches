@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import clasesinstanciables.Persona;
 
-public abstract class NombreComparator implements Comparator<Persona> {
+public  class NombreComparator implements Comparator<Persona> {
 
 	@Override
 	public int compare(Persona p1,Persona p2) {

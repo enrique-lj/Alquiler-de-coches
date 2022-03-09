@@ -55,7 +55,7 @@ public class Moto extends Electrico  implements Serializable {
 	 */
 	public String toString()
 	{
-		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+cilindrada+"cm3 - Carnet("+carnetrequerido.getTipo()+") - Moto.";
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+cilindrada+"cm3 - Carnet("+carnetrequerido.getTipo()+")";
 	}
 	
 	@Override

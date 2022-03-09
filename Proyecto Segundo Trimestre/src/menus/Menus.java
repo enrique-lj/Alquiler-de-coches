@@ -106,7 +106,7 @@ public class Menus {
 		opcion=interfazusuario.MenuInt("OPCIONES", opciones, 1, 2);
 		if (opcion==1)
 		{
-			empresa.AñadeAlquiler(MetodosAlquileres.RealizaAlquiler(empresa));
+			empresa.AñadeAlquiler(MetodosConcretos.RealizaAlquiler(empresa));
 		}
 		else 
 		{
@@ -132,11 +132,9 @@ public class Menus {
 			opciones.add("MOSTRAR TIPOS DE CARNET");
 			opciones.add("MOSTRAR LISTA DE OFICINAS");
 			opciones.add("MOSTRAR CATEGORIAS");
-			opciones.add("MOSTRAR LISTA MOTOS");
-			opciones.add("MOSTRAR LISTA FURGONETAS");
 			opciones.add("MOSTRAR VEHICULOS ALQUILADOS");
 			opciones.add("MOSTRAR HISTORIAL DE ALQUILERES");
-			opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 12);
+			opcion=interfazusuario.MenuInt("¿QUE DESEA MOSTRAR?", opciones, 1, 10);
 			switch (opcion) {
 			case 1:
 				MetodosConcretos.MostrarAlqSegunFechas(empresa);
@@ -163,15 +161,9 @@ public class Menus {
 				MetodosConcretos.MostrarListaCategorias(empresa);
 				break;
 			case 9:
-				MetodosConcretos.MostrarListaMotos(empresa);
-				break;
-			case 10:
-				MetodosConcretos.MostrarListaFurgonetas(empresa);
-				break;
-			case 11:
 				MetodosConcretos.MostrarListaVehiculosAlquilados(empresa);
 				break;
-			case 12:
+			case 10:
 				MetodosConcretos.MostrarHistorialAlquileres(empresa);
 				break;
 			}	

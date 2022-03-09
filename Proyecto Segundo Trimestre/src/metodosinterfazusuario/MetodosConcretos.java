@@ -1,7 +1,9 @@
 package metodosinterfazusuario;
 import mismetodosgenerales.*;
 import clasesinstanciables.*;
+import comparadores.MarcaComparator;
 import comparadores.NsocioComparator;
+import comparadores.RecargoComparator;
 import excepciones.*;
 import logica_de_negocio.MetodosAlquileres;
 
@@ -19,8 +21,11 @@ public class MetodosConcretos {
 	public static Cliente PideDatosCliente(Empresa empresa)
 	{
 		Cliente _cliente =null;
+		boolean valido=true;
 		Carnet _carnet=null;
 		String _opccarnet=null;
+		int _ntarjetacliente=0;
+		int ntarjetaaux=_ntarjetacliente;
 		String _dni=interfazusuario.PideDniValidad();
 		String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
 		String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
@@ -38,30 +43,62 @@ public class MetodosConcretos {
 			}
 		} 
 		while (empresa.BuscaCarnet(_opccarnet)==null);
-		 
-		try 
-		{
-			_cliente=new Cliente(_dni,_nombre,_ap1,_ap2,_carnet);
-		} catch (DniNoValidoException e)
-		{
-			System.out.println("Dni no valido.");
-		} catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}		
+		
+			try 
+			{
+				_cliente=new Cliente(_dni,_nombre,_ap1,_ap2,_carnet);
+				
+			} 
+			catch (DniNoValidoException e)
+			{
+				System.out.println("Dni no valido.");
+				
+			} 
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+				
+			}
+		
+				
 
 		if (interfazusuario.MenuSioNo("¿Es usted cliente habitual?")==1)
 		{
-			try
+			
+			do
 			{
-			int _ntarjetacliente=interfazusuario.PideNumeroValidado(1,100000,"Introduzca su Nº de socio: ");
-			_cliente.setNtarjetacliente(_ntarjetacliente);
+				_ntarjetacliente=interfazusuario.PideNumeroValidado(1,100000,"Introduzca su Nº de socio: ");
+				ArrayList<Cliente>listaclientes=new ArrayList<Cliente>(empresa.getListaclientes().values());
+				//Este bucle es para buscar si hay una tarjeta igual
+				for(int i=0;i<listaclientes.size();i++)
+				{
+					if(listaclientes.get(i).getNtarjetacliente()==_ntarjetacliente)
+					{
+						ntarjetaaux=listaclientes.get(i).getNtarjetacliente();
+					}
+				}
+				if (ntarjetaaux==_ntarjetacliente)
+				{
+					valido=true;
+				}
+				else
+				{
+					valido=false;
+				}	
+			}while(valido);
+			
+			
+				try 
+				{
+					_cliente.setNtarjetacliente(_ntarjetacliente);	
+				} 
+				catch (ValorNoValidoException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();	
+				}
+			
 			empresa.AñadeCliente(empresa,_cliente);
-			}
-			catch (ValorNoValidoException e)
-			{
-				System.out.println("Valor no valido");
-			}
 		}
 		
 		return _cliente;
@@ -73,18 +110,21 @@ public class MetodosConcretos {
 	public static Categoria PideDatosCategoria()
 	{
 		Categoria _categoria=null;
+		
 		String _codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
 		String _descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la categoria: ");
 		int _recargoalquileres=interfazusuario.PideNumeroValidado(1, 100000, "Introduzca el recargo del alquiler: ");
-		try
-		{
-			_categoria=new Categoria(_codcategoria,_descripcion,_recargoalquileres);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-
-		}
+		
+			try
+			{
+				_categoria=new Categoria(_codcategoria,_descripcion,_recargoalquileres);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+				
+			}
+		 
 		return _categoria;
 	}
 	/**
@@ -96,19 +136,22 @@ public class MetodosConcretos {
 	public static Oficina PideDatosOficina()
 	{
 		Oficina _oficina=null;
+		
 		String _codigoofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
 		String _descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la oficina: ");
 		String _localidad=interfazusuario.PideCadenaValidada(75, "Introduzca la localidad en que se encuentra la oficina: ");
 		String _provincia=interfazusuario.PideCadenaValidada(35, "Introduzca la provincia en que se encuentra la oficina: ");
-		try
-		{
-			_oficina=new Oficina(_codigoofi,_descripcion,_localidad,_provincia);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-
-		}
+		
+			try
+			{
+				_oficina=new Oficina(_codigoofi,_descripcion,_localidad,_provincia);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");	
+			}
+		
+		
 		if (interfazusuario.MenuSioNo("¿Es una oficina de aeropuerto?")==1)
 		{
 			boolean _ofiaeropuerto=true;
@@ -126,37 +169,42 @@ public class MetodosConcretos {
 		Empleado _empleado=null;
 		String _opcofi=null;
 		Oficina _oficina=null;
-		String _dni=interfazusuario.PideDniValidad();
-		String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
-		String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
-		String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
-		GregorianCalendar _faltaempresa=interfazusuario.PideFechaValidada("Introduzca la fecha de alta en la empresa: ");
-		do
-		{
-			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
-			if (empresa.BuscaOficina(_opcofi)!=null)
+		
+		
+			String _dni=interfazusuario.PideDniValidad();
+			String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
+			String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
+			String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
+			GregorianCalendar _faltaempresa=interfazusuario.PideFechaValidada("Introduzca la fecha de alta en la empresa: ");
+			do
 			{
-				 _oficina=empresa.BuscaOficina(_opcofi);
-			}
-			else
-			{
-				System.out.println("Codigo de oficina no existente.");
-			}
-		} 
-		while (empresa.BuscaOficina(_opcofi)==null);
-		try
-		{
-		_empleado=new Empleado(_dni,_nombre,_ap1,_ap2,_faltaempresa,_oficina);
-		}
-		catch (DniNoValidoException e)
-		{
-			System.out.println("Dni no valido.");
-
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}
+				_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+				if (empresa.BuscaOficina(_opcofi)!=null)
+				{
+					 _oficina=empresa.BuscaOficina(_opcofi);
+				}
+				else
+				{
+					System.out.println("Codigo de oficina no existente.");
+				}
+			} 
+			while (empresa.BuscaOficina(_opcofi)==null);
+				
+				try
+				{
+				_empleado=new Empleado(_dni,_nombre,_ap1,_ap2,_faltaempresa,_oficina);
+				}
+				catch (DniNoValidoException e)
+				{
+					System.out.println("Dni no valido.");
+				}
+				catch (LongitudNoValidaException e)
+				{
+					System.out.println("Longitud no valida.");
+				}
+			
+		
+		
 		return _empleado;
 	}
 	
@@ -223,20 +271,21 @@ public class MetodosConcretos {
 			}
 		} 
 		while (empresa.BuscaCarnet(_opccarnet)==null);
-		try
-		{
-		moto=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
-				_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_cilindrada,_carnetrequerido);
-		moto.setTipovehiculo(2);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}
-		catch (ValorNoValidoException e)
-		{
-			System.out.println("Valor no valido");
-		}
+		
+			try
+			{
+				moto=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
+						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_cilindrada,_carnetrequerido);
+				moto.setTipovehiculo(2);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+			}
+			catch (ValorNoValidoException e)
+			{
+				System.out.println("Valor no valido");
+			}
 		return moto;
 	}
 	/**
@@ -288,20 +337,22 @@ public class MetodosConcretos {
 		int _tiempodecarga=interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: ");
 		int _nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
 		String _tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
-		try
-		{
-		celect=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
-				_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_nplazas,_tipo);
-		celect.setTipovehiculo(1);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}
-		catch (ValorNoValidoException e)
-		{
-			System.out.println("Valor no valido");
-		}
+		
+			try
+			{
+				celect=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
+						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_nplazas,_tipo);
+				celect.setTipovehiculo(1);	
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");	
+			}
+			catch (ValorNoValidoException e)
+			{
+				System.out.println("Valor no valido");	
+			}
+		
 		return celect;
 	}
 	/**
@@ -354,20 +405,22 @@ public class MetodosConcretos {
 		String _nvemisiones=interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: ");
 		int _nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
 		String _tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
-		try
-		{
-		ccomb=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
-				_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_nplazas,_tipo);
-		ccomb.setTipovehiculo(3);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}
-		catch (ValorNoValidoException e)
-		{
-			System.out.println("Valor no valido");
-		}
+		
+			try
+			{
+				ccomb=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
+						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_nplazas,_tipo);
+				ccomb.setTipovehiculo(3);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+			}
+			catch (ValorNoValidoException e)
+			{
+				System.out.println("Valor no valido");
+			}
+		
 		return ccomb;
 	}
 	/**
@@ -434,208 +487,25 @@ public class MetodosConcretos {
 			}
 		} 
 		while (empresa.BuscaCarnet(_opccarnet)==null);
-		try
-		{
-		furgoneta=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
-				_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_capacidad,_carnetrequerido);
-		furgoneta.setTipovehiculo(4);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-		}
-		catch (ValorNoValidoException e)
-		{
-			System.out.println("Valor no valido");
-		}
+		
+			try
+			{
+				furgoneta=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
+						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_capacidad,_carnetrequerido);
+				furgoneta.setTipovehiculo(4);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+			}
+			catch (ValorNoValidoException e)
+			{
+				System.out.println("Valor no valido");
+			}
+		
 		return furgoneta;
 	}
 	
-	
-	/**
-	 * Metodo que se encarga de pedir los datos de un vehiculo, pregunta a través de menus,
-	 * si es electrico o de combustion. Si es electrico, pregunta si es coche o moto y pide los
-	 * datos del que se haya elegido, para despues crear un objeto de ese tipo. Si es de combustion,
-	 * hace lo mismo, pero con los datos referentes a furgoneta y coche de combustión.
-	 * @return Devuelve un objeto de tipo vehiculo
-	 *//*
-	public static Vehiculo PideDatosVehiculo(Empresa empresa)
-	{
-		ArrayList<String>opciones=new ArrayList<String>();
-		int opcion;
-		opciones.add("Electrico");
-		opciones.add("Combustión");
-		Vehiculo _vehiculo=null;
-		String _nbastidor=interfazusuario.PideCadenaValidada(17, "Numero de bastidor: ");
-		String _matricula=interfazusuario.PideCadenaValidada(7, "Matricula: ");
-		String _marca=interfazusuario.PideCadenaValidada(35, "Marca: ");
-		String _modelo=interfazusuario.PideCadenaValidada(35, "Modelo: ");
-		String _color=interfazusuario.PideCadenaValidada(20, "Color: ");
-		int _kms=interfazusuario.PideNumeroValidado(0, 2000000, "Kilometros del vehiculo: ");
-		GregorianCalendar _faltaoadqui=interfazusuario.PideFechaValidada("Fecha de adquisicion: ");
-		Categoria _categoria=null;
-		String _opccat;
-		do
-		{
-			_opccat=interfazusuario.PideCadenaValidada(8, "Introduzca el tipo de categoria: ");
-			if (empresa.BuscaCategoria(_opccat)!=null)
-			{
-				 _categoria=empresa.BuscaCategoria(_opccat);
-			}
-			else
-			{
-				System.out.println("Categoria no existente.");
-			}
-		} 
-		while (empresa.BuscaCategoria(_opccat)==null);
-		String _opcofi=null;
-		Oficina _oficina=null;
-		do
-		{
-			_opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
-			if (empresa.BuscaOficina(_opcofi)!=null)
-			{
-				 _oficina=empresa.BuscaOficina(_opcofi);
-			}
-			else
-			{
-				System.out.println("Codigo de oficina no existente.");
-			}
-		} 
-		while (empresa.BuscaOficina(_opcofi)==null);
-		int _autonomia;
-		int _tiempodecarga;
-		int _nplazas;
-		String _tipo;
-		Carnet _carnetrequerido=null;
-		String _opccarnet=null;
-		int _consumo;
-		int _potencia;
-		int _cilindrada;
-		String _nvemisiones;
-		
-		opcion=interfazusuario.MenuInt("¿Que tipo de vehiculo es?", opciones, 1, 4);
-		if (opcion==1)
-		{
-			_autonomia=interfazusuario.PideNumeroValidado(1, 600, "Kms de autonomia: ");
-			_tiempodecarga=interfazusuario.PideNumeroValidado(1, 600, "Tiempo de carga en minutos: ");
-			opciones.clear();
-			opciones.add("Coche Electrico");
-			opciones.add("Moto");
-			opcion=interfazusuario.MenuInt("SELECCIONE UNO.", opciones, 1, 2);
-			if (opcion==1)
-			{
-				_nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
-				_tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
-				try
-				{
-				Cocheelectrico cocheelectrico=new Cocheelectrico(_nbastidor,_matricula,_marca,_modelo, _color,
-						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_nplazas,_tipo);
-				cocheelectrico.setTipovehiculo(1);
-				}
-				catch (LongitudNoValidaException e)
-				{
-					System.out.println("Longitud no valida.");
-				}
-				catch (ValorNoValidoException e)
-				{
-					System.out.println("Valor no valido");
-				}
-			}
-			else
-			{
-				_cilindrada=interfazusuario.PideNumeroValidado(1, 3000, "Cilindrada: ");
-				do
-				{
-					_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
-					if (empresa.BuscaCarnet(_opccarnet)!=null)
-					{
-						 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
-					}
-					else
-					{
-						System.out.println("Tipo de carnet no valido.");
-					}
-				} 
-				while (empresa.BuscaCarnet(_opccarnet)==null);
-				try
-				{
-				Moto moto=new Moto(_nbastidor,_matricula,_marca,_modelo, _color,
-						_faltaoadqui, _kms,_categoria,_oficina,_autonomia,_tiempodecarga,_cilindrada,_carnetrequerido);
-				moto.setTipovehiculo(2);
-				}
-				catch (LongitudNoValidaException e)
-				{
-					System.out.println("Longitud no valida.");
-				}
-				catch (ValorNoValidoException e)
-				{
-					System.out.println("Valor no valido");
-				}
-			}	
-		}
-		else
-		{
-			_consumo=interfazusuario.PideNumeroValidado(1, 600, "Consumo: ");
-			_potencia=interfazusuario.PideNumeroValidado(1, 600, "Potencia: ");
-			_nvemisiones=interfazusuario.PideCadenaValidada(6, "Nivel de emisiones: ");
-			opciones.clear();
-			opciones.add("Coche Combustión");
-			opciones.add("Furgoneta");
-			opcion=interfazusuario.MenuInt("SELECCIONE UNO.", opciones, 1, 2);
-			if (opcion==1)
-			{
-				_nplazas=interfazusuario.PideNumeroValidado(1, 9, "Nº de plazas: ");
-				_tipo=interfazusuario.PideCadenaValidada(15, "Tipo de coche: ");
-				try
-				{
-				Cochecomb cochecomb=new Cochecomb(_nbastidor,_matricula,_marca,_modelo, _color,
-						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_nplazas,_tipo);
-				cochecomb.setTipovehiculo(3);
-				}
-				catch (LongitudNoValidaException e)
-				{
-					System.out.println("Longitud no valida.");
-				}
-				catch (ValorNoValidoException e)
-				{
-					System.out.println("Valor no valido");
-				}
-			}
-			else
-			{
-				double _capacidad=interfazusuario.PideNumeroValidadoDouble(1.00, 10.00, "Capacidad: ");
-				do
-				{
-					_opccarnet=interfazusuario.PideCadenaValidada(3, "Introduzca su tipo de carnet:");
-					if (empresa.BuscaCarnet(_opccarnet)!=null)
-					{
-						 _carnetrequerido=empresa.BuscaCarnet(_opccarnet);
-					}
-					else
-					{
-						System.out.println("Tipo de carnet no valido.");
-					}
-				} 
-				while (empresa.BuscaCarnet(_opccarnet)==null);
-				try
-				{
-				Furgoneta furgoneta=new Furgoneta(_nbastidor,_matricula,_marca,_modelo, _color,
-						_faltaoadqui, _kms,_categoria,_oficina,_consumo,_potencia,_nvemisiones,_capacidad,_carnetrequerido);
-				furgoneta.setTipovehiculo(4);
-				}
-				catch (LongitudNoValidaException e)
-				{
-					System.out.println("Longitud no valida.");
-				}
-				catch (ValorNoValidoException e)
-				{
-					System.out.println("Valor no valido");
-				}
-			}
-		}
-		return _vehiculo;	
-	}*/
 	/**
 	 * Metodo que pide los datos de una empresa.
 	 * @return Devuelve un objeto empresa
@@ -647,15 +517,16 @@ public class MetodosConcretos {
 		String _nombre;
 		_nif=interfazusuario.PideCadenaValidada(9, "Nif de la empresa: ");
 		_nombre=interfazusuario.PideCadenaValidada(75, "Nombre de la empresa: ");
+		
 		try
-		{
-			empresa=new Empresa(_nif,_nombre);
-		}
-		catch (LongitudNoValidaException e)
-		{
-			System.out.println("Longitud no valida.");
-
-		}
+			{
+				empresa=new Empresa(_nif,_nombre);
+			}
+			catch (LongitudNoValidaException e)
+			{
+				System.out.println("Longitud no valida.");
+			}
+		
 		return empresa;
 	}
 	/**
@@ -718,13 +589,14 @@ public class MetodosConcretos {
 	 */
 	public static void MostrarStockVehiculos(Empresa empresa)
 	{
-		//empresa.RellenarStock(empresa);
-		for(Entry<String, Vehiculo> item:empresa.getListavehiculos().entrySet())
+		
+		ArrayList<Vehiculo>stock=new ArrayList<Vehiculo>(empresa.getListavehiculos().values());
+		Collections.sort(stock,new MarcaComparator());
+		for(Vehiculo vehiculo:stock)
 		{
-			String matricula= item.getKey();
-			Vehiculo vehiculo=item.getValue();
 			System.out.println(vehiculo);
 		}
+		
 	}
 	/**
 	 * Metodo que muestra una lista con las categorias de los vehiculos
@@ -732,10 +604,10 @@ public class MetodosConcretos {
 	 */
 	public static void MostrarListaCategorias(Empresa empresa)
 	{
-		for(Entry<String, Categoria> item:empresa.getListacategorias().entrySet())
+		ArrayList<Categoria>listacategorias=new ArrayList<Categoria>(empresa.getListacategorias().values());
+		Collections.sort(listacategorias,new RecargoComparator());
+		for(Categoria categoria:listacategorias)
 		{
-			String codcategoria= item.getKey();
-			Categoria categoria=item.getValue();
 			System.out.println(categoria);
 		}
 	}
@@ -824,7 +696,10 @@ public class MetodosConcretos {
 			}
 		}
 	}
-	
+	/**
+	 * Metodo para mostrar la lista de los clientes habituales.
+	 * @param empresa
+	 */
 	public static void MostrarClientesHabituales(Empresa empresa)
 	{
 		ArrayList<Cliente>listaclientes=new ArrayList<Cliente>(empresa.getListaclientes().values());
@@ -960,13 +835,20 @@ public class MetodosConcretos {
 		double _preciofinal=MetodosAlquileres.CalcularPrecioPrevisto(empresa,a.get_vehiculo().getMatricula(), diasalquilado, tipo);
 		//pedimos los kilometros que ha recorrido para asi modificarlo
 		int _kmsrecorridos=interfazusuario.PideNumeroValidado(1, 1000000, "Introduzca los kilometros que ha recorrido: ");
-		try {
-			//modificamos los vehiculos
-			MetodosAlquileres.ModificacionesDevolucion(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo,a.get_lugaralquiler());
-		} catch (ValorNoValidoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+			try 
+			{
+				//modificamos los vehiculos
+				MetodosAlquileres.ModificacionesDevolucion(empresa, a.get_vehiculo().getMatricula(), _kmsrecorridos, tipo,a.get_lugaralquiler());
+				
+			} 
+			catch (ValorNoValidoException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		
+		
 		//como ya se ha hecho la devolucion, borramos el vehiculo de los vehiculos alquilados
 		empresa.BorraCocheAlquilado(a.get_vehiculo().getMatricula());
 		//le mandamos los datos de la devolucion a traves de los setters
@@ -975,12 +857,94 @@ public class MetodosConcretos {
 		a.setKmsrecorridos(_kmsrecorridos);
 		a.setPreciofinal(_preciofinal);
 	}
-	/*
-	public static void MostrarFecha(GregorianCalendar fecha)
-	{
-		System.out.println(fecha.getTime().getDate()+"/"+fecha.getTime().getMonth()+"/"+(_ffinalquiler.getTime().getYear()+1900);
-	}*/
-	
-	
-	
+	 
+
+		public static Alquiler RealizaAlquiler(Empresa empresa)
+		{
+			Alquiler alquiler=null;
+			String _codalquiler="";
+			String codalquileraux=_codalquiler;
+			boolean valido;
+			/*Creamos dos arraylist, para poder trabajar con ellos, uno sera de los vehiculos que tenemos disponibles,
+			 * y el otro sera para los que tenemos alquilados.
+			 * Para poder tener actualizada la lista de vehiculos disponibles lo que hago es hacer un bucle dentro de otro
+			 * el primero recorre los vehiculos alquilados y el de dentro los disponibles(que sera igual a los de la lista de stock 
+			 * que le pasa el treemap), lo que hace el bucle es buscar lo vehiculos alquilados y quitarselos a los disponibles.*/
+			ArrayList<Vehiculo>vehiculosdisponibles=new ArrayList<Vehiculo>(empresa.getListavehiculos().values());
+			ArrayList<Vehiculo>vehiculosalquilados=new ArrayList<Vehiculo>(empresa.getVehiculosalquilados().values());
+			for (int i=0;i<vehiculosalquilados.size();i++)
+			{
+				for (int j=0;j<vehiculosdisponibles.size();j++)
+				{
+					vehiculosdisponibles.remove(vehiculosalquilados.get(i));
+				}
+			}
+			do
+			{
+				 _codalquiler=interfazusuario.PideCadenaValidada(10, "Introduzca el codigo del alquiler: ");
+				ArrayList<Alquiler>alquileres=new ArrayList<Alquiler>(empresa.getHistorialalquileres().values());
+				//Este bucle es para buscar si hay una tarjeta igual
+				for(int i=0;i<alquileres.size();i++)
+				{
+					if(alquileres.get(i).getCodalquiler().equals(_codalquiler))
+					{
+						codalquileraux=alquileres.get(i).getCodalquiler();
+					}
+				}
+				if (codalquileraux.equals(_codalquiler))
+				{
+					valido=true;
+					System.out.println("Codigo ya existente.");
+				}
+				else
+				{
+					valido=false;
+				}	
+			}while(valido);
+			String _dni=interfazusuario.PideDniValidad();
+			Empleado _empleado=empresa.BuscaEmpleado(_dni);
+			Vehiculo vehiculo;
+			ArrayList<String>opciones=new ArrayList<String>();
+			int opcion;
+			String codigoofi;
+			String codigocat;
+			opciones.add("OFICINA");
+			opciones.add("CATEGORIA");
+			opcion=interfazusuario.MenuInt("¿COMO QUIERE BUSCAR EL VEHICULO?", opciones, 1, 2);
+			if (opcion==1)
+			{
+				codigoofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+				vehiculo=MetodosConcretos.BuscaVehiculoPorOficina(empresa, codigoofi, vehiculosdisponibles);
+			}
+			else
+			{
+				codigocat=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
+				vehiculo=MetodosConcretos.BuscaVehiculoPorCategoria(empresa, codigocat, vehiculosdisponibles);
+			}
+			empresa.AñadeVehiculoAlquilado(vehiculo);//AQUI AÑADIMOS EL VEHICULO A LA LISTA DE VEHICULOS ALQUILADOS
+			//HAY QUE CREAR UNA LISTA DE STOCK DISPONIBLE Y CAMBIARLA POR LAS LISTAS DE ABAJO (BUSCA VEHICULO POR
+			//OFICINA Y CATEGORIA) Y TAMBIEN HAY QUE BORRAR EL VEHICULO K SE ALQUILA DE ESA LISTA CUANDO SE HACE UN ALQUILER
+			
+			Cliente _cliente=MetodosConcretos.PideDatosCliente(empresa);
+			GregorianCalendar _finialquiler=interfazusuario.PideFechaValidada("¿En que fecha quiere alquilarlo?");
+			GregorianCalendar _ffinalquiler=interfazusuario.PideFechaValidada("¿En que fecha tiene previsto devolverlo?");
+			
+			//Calculamos los dias transcurridos entre las dos fechas
+			//pasamos la fecha final a milisegundos y hacemos lo mismo con la fecha de inicio
+			long finMS=_ffinalquiler.getTimeInMillis();
+			long inicioMS=_finialquiler.getTimeInMillis();
+			//restamos los resultados, y lo pasamos a dias
+			int diasalquilado= (int)((Math.abs(finMS-inicioMS))/(1000*60*60*24));
+			
+			int tipo=vehiculo.getTipovehiculo();
+			
+			double precio=MetodosAlquileres.CalcularPrecioPrevisto(empresa,vehiculo.getMatricula(),diasalquilado,tipo);
+			
+			String _opcofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina en donde lo devolverá: ");
+			Oficina lugardevolucion=empresa.BuscaOficina(_opcofi);
+			
+			alquiler=new Alquiler(_codalquiler,vehiculo,_empleado,_cliente,_finialquiler,_ffinalquiler,lugardevolucion,precio);
+			
+			return alquiler;
+		}
 }
