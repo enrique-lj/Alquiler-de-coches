@@ -1,6 +1,7 @@
 package clasesinstanciables;
 import java.io.Serializable;
 
+import comparadores.RecargoComparator;
 import excepciones.LongitudNoValidaException;
 public class Categoria implements Serializable{
 
@@ -12,6 +13,7 @@ public class Categoria implements Serializable{
 	private int longicodcat=8;
 	private int longidescrip=300;
 	private int longirecargo=1000;
+	public static final RecargoComparator rc=new RecargoComparator();
 	
 	//CONSTRUCTORES
 	/**

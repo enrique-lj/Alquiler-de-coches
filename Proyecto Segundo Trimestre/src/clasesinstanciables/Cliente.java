@@ -1,5 +1,7 @@
 package clasesinstanciables;
 import java.io.Serializable;
+
+import comparadores.NsocioComparator;
 import excepciones.DniNoValidoException;
 import excepciones.LongitudNoValidaException;
 import excepciones.ValorNoValidoException;
@@ -11,6 +13,7 @@ public class Cliente extends Persona implements Serializable {
 	private Carnet tipocarnet;//he cambiado el tipo de Carnet a String, si no vale volver a cambiarlo.
 	private int ntarjetacliente;
 	private int longintarjeta=100000;
+	public static final NsocioComparator nsc=new NsocioComparator();
 	
 	//CONSTRUCTORES
 	/**

@@ -12,6 +12,7 @@ public abstract class Electrico extends Vehiculo implements Serializable{
 	private static final long serialVersionUID = 8799656478674716631L;
 	private int autonomia;
 	private int tiempocarga;
+	private int recargo=15;
 	private int longiautonomia=600;
 	private int longirecarga=600;
 	
@@ -89,6 +90,18 @@ public abstract class Electrico extends Vehiculo implements Serializable{
 			throw new ValorNoValidoException();
 		}
 		
+	}
+	/**
+	 * @return the recargo
+	 */
+	public int getRecargo() {
+		return recargo;
+	}
+	/**
+	 * @param recargo the recargo to set
+	 */
+	public void setRecargo(int recargo) {
+		this.recargo = recargo;
 	}
 	
 	

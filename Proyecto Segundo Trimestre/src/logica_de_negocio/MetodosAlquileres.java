@@ -26,19 +26,19 @@ public class MetodosAlquileres {
 		{
 			case 1://COCHE ELECTRICO
 				Cocheelectrico celec=empresa.BuscaCocheelect(matricula);
-				precio=celec.CalculaImporte(diasalquilado, celec.getCategoria().getRecargoalquileres(), celec.getUbicacion().isOfiaeropuerto());
+				precio=celec.CalculaImporte(diasalquilado);
 				break;
 			case 2://MOTO
 				Moto moto=empresa.BuscaMoto(matricula);
-				precio=moto.CalculaImporte(diasalquilado, moto.getCategoria().getRecargoalquileres(), moto.getUbicacion().isOfiaeropuerto());
+				precio=moto.CalculaImporte(diasalquilado);
 				break;
 			case 3://COCHE COMBUSTION
 				Cochecomb ccomb=empresa.BuscaCochecomb(matricula);
-				precio=ccomb.CalculaImporte(diasalquilado, ccomb.getCategoria().getRecargoalquileres(),ccomb.getUbicacion().isOfiaeropuerto());
+				precio=ccomb.CalculaImporte(diasalquilado);
 				break;
 			case 4://FURGONETA
 				Furgoneta furgo=empresa.BuscaFurgoneta(matricula);
-				precio=furgo.CalculaImporte(diasalquilado, furgo.getCategoria().getRecargoalquileres(), furgo.getUbicacion().isOfiaeropuerto());
+				precio=furgo.CalculaImporte(diasalquilado);
 				break;
 		}
 		return precio;

@@ -2,6 +2,7 @@ package menus;
 import mismetodosgenerales.*;
 import clasesinstanciables.*;
 import excepciones.LongitudNoValidaException;
+import excepciones.ValorNoValidoException;
 import logica_de_negocio.Mantenimiento;
 import logica_de_negocio.MetodosAlquileres;
 import metodosinterfazusuario.MetodosConcretos;
@@ -12,9 +13,10 @@ public class Menus {
 	 * Menu principal del programa el cual va a dictar el flujo de nuestro programa. Se compone de
 	 * varios menus conectados entre si, que gestionan el mantenimiento de ficheros, los alquileres,
 	 * muestra informes y serializa la empresa cuando se elige la opcion de salir.
+	 * @throws ValorNoValidoException 
 	 * @throws LongitudNoValidaException 
 	 */
-	public static void MenuPrincipal(Empresa empresa)
+	public static void MenuPrincipal(Empresa empresa) throws LongitudNoValidaException, ValorNoValidoException
 	{
 		//CAMBIAR EL MENSAJE POR UN METODO DE MENSAJE DE INICIO
 		//System.out.println("BIENVENIDO");
@@ -49,12 +51,13 @@ public class Menus {
 	/**
 	 * Metodo que muestra el menu de mantenimiento y te lleva a los distintos tipos de mantenimiento.
 	 * @param empresa
+	 * @throws ValorNoValidoException 
+	 * @throws LongitudNoValidaException 
 	 */
-	public static void MenuMantenimiento(Empresa empresa)
+	public static void MenuMantenimiento(Empresa empresa) throws LongitudNoValidaException, ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
-		String opc;
 		do 
 		{
 			opciones.clear();

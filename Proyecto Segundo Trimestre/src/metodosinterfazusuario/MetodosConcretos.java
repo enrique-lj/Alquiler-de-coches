@@ -3,6 +3,7 @@ import mismetodosgenerales.*;
 import clasesinstanciables.*;
 import comparadores.MarcaComparator;
 import comparadores.NsocioComparator;
+import comparadores.OficinaComparator;
 import comparadores.RecargoComparator;
 import excepciones.*;
 import logica_de_negocio.MetodosAlquileres;
@@ -24,9 +25,8 @@ public class MetodosConcretos {
 		boolean valido=true;
 		Carnet _carnet=null;
 		String _opccarnet=null;
-		int _ntarjetacliente=0;
-		int ntarjetaaux=_ntarjetacliente;
-		String _dni=interfazusuario.PideDniValidad();
+		int _ntarjetacliente;
+		String _dni=interfazusuario.PideDniValidad("DNI cliente: ");
 		String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
 		String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
 		String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
@@ -67,6 +67,7 @@ public class MetodosConcretos {
 			
 			do
 			{
+				valido=true;
 				_ntarjetacliente=interfazusuario.PideNumeroValidado(1,100000,"Introduzca su Nº de socio: ");
 				ArrayList<Cliente>listaclientes=new ArrayList<Cliente>(empresa.getListaclientes().values());
 				//Este bucle es para buscar si hay una tarjeta igual
@@ -74,18 +75,12 @@ public class MetodosConcretos {
 				{
 					if(listaclientes.get(i).getNtarjetacliente()==_ntarjetacliente)
 					{
-						ntarjetaaux=listaclientes.get(i).getNtarjetacliente();
+						System.out.println("Nº de socio existente.");
+						valido=false;
 					}
 				}
-				if (ntarjetaaux==_ntarjetacliente)
-				{
-					valido=true;
-				}
-				else
-				{
-					valido=false;
-				}	
-			}while(valido);
+					
+			}while(!valido);
 			
 			
 				try 
@@ -107,11 +102,27 @@ public class MetodosConcretos {
 	 * Metodo que se encarga de pedir los datos de una categoria y crear un objeto categoria con esos datos
 	 * @return Devuelve un objeto de tipo categoria
 	 */
-	public static Categoria PideDatosCategoria()
+	public static Categoria PideDatosCategoria(Empresa empresa)
 	{
 		Categoria _categoria=null;
-		
-		String _codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
+		ArrayList<Categoria>categorias=new ArrayList<Categoria>(empresa.getListacategorias().values());
+		String _codcategoria;
+		boolean valido;
+		do
+		{
+			 _codcategoria=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
+			valido=true;
+			for(int i=0;i<categorias.size();i++)
+			{
+				if(categorias.get(i).getCodcategoria().equals(_codcategoria))
+				{
+					;
+					System.out.println("Categoria ya existente.");
+					valido=false;
+				}
+			}
+		}
+		while(!valido);
 		String _descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la categoria: ");
 		int _recargoalquileres=interfazusuario.PideNumeroValidado(1, 100000, "Introduzca el recargo del alquiler: ");
 		
@@ -133,11 +144,27 @@ public class MetodosConcretos {
 	 * creado con un set.
 	 * @return Devuelve un objeto de tipo oficina
 	 */
-	public static Oficina PideDatosOficina()
+	public static Oficina PideDatosOficina(Empresa empresa)
 	{
 		Oficina _oficina=null;
-		
-		String _codigoofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+		ArrayList<Oficina>oficinas=new ArrayList<Oficina>(empresa.getListaoficinas().values());
+		String _codigoofi;
+		boolean valido;
+		do
+		{
+			 _codigoofi=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la oficina: ");
+			valido=true;
+			for(int i=0;i<oficinas.size();i++)
+			{
+				if(oficinas.get(i).getCodigoofi().equals(_codigoofi))
+				{
+					;
+					System.out.println("Oficina ya existente.");
+					valido=false;
+				}
+			}
+		}
+		while(!valido);
 		String _descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripcion para la oficina: ");
 		String _localidad=interfazusuario.PideCadenaValidada(75, "Introduzca la localidad en que se encuentra la oficina: ");
 		String _provincia=interfazusuario.PideCadenaValidada(35, "Introduzca la provincia en que se encuentra la oficina: ");
@@ -169,9 +196,25 @@ public class MetodosConcretos {
 		Empleado _empleado=null;
 		String _opcofi=null;
 		Oficina _oficina=null;
+		ArrayList<Empleado>plantilla=new ArrayList<Empleado>(empresa.getPlantilla().values());
+		String dni;
+		boolean valido;
+		do
+		{
+			dni=interfazusuario.PideDniValidad("Introduzca el DNI del empleado: ");
+			valido=true;
+			for(int i=0;i<plantilla.size();i++)
+			{
+				if(plantilla.get(i).getDni().equals(dni))
+				{
+					;
+					System.out.println("DNI ya existente.");
+					valido=false;
+				}
+			}
+		}
+		while(!valido);
 		
-		
-			String _dni=interfazusuario.PideDniValidad();
 			String _nombre=interfazusuario.PideCadenaValidada(35, "Introduzca su nombre:");
 			String _ap1=interfazusuario.PideCadenaValidada(35, "Introduzca su primer apellido:");
 			String _ap2=interfazusuario.PideCadenaValidada(35, "Introduzca su segundo apellido:");
@@ -192,7 +235,7 @@ public class MetodosConcretos {
 				
 				try
 				{
-				_empleado=new Empleado(_dni,_nombre,_ap1,_ap2,_faltaempresa,_oficina);
+				_empleado=new Empleado(dni,_nombre,_ap1,_ap2,_faltaempresa,_oficina);
 				}
 				catch (DniNoValidoException e)
 				{
@@ -533,13 +576,29 @@ public class MetodosConcretos {
 	 * Metodo que pide los datos de un carnet
 	 * @return Devuelve un objeto Carnet
 	 */
-	public static Carnet PideDatosCarnet()
+	public static Carnet PideDatosCarnet(Empresa empresa)
 	{
 		Carnet carnet=null;
 		String _tipo;
-		String _descripcion;
-		_tipo=interfazusuario.PideCadenaValidada(3, "Introduzca el tipo de carnet: ");
-		_descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripción: ");
+		ArrayList<Carnet>listacarnets=new ArrayList<Carnet>(empresa.getTiposdecarnet().values());
+		boolean valido;
+		do
+		{
+			_tipo=interfazusuario.PideCadenaValidada(3, "Introduzca el tipo de carnet: ");
+			valido=true;
+			for(int i=0;i<listacarnets.size();i++)
+			{
+				if(listacarnets.get(i).getTipo().equals(_tipo))
+				{
+					;
+					System.out.println("Carnet ya existente.");
+					valido=false;
+				}
+			}
+		}
+		while(!valido);
+		
+		String _descripcion=interfazusuario.PideCadenaValidada(300, "Introduzca una descripción: ");
 		carnet=new Carnet(_tipo,_descripcion);
 		return carnet;
 		
@@ -550,10 +609,10 @@ public class MetodosConcretos {
 	 */
 	public static void MostrarPlantilla(Empresa empresa)
 	{
-		for(Entry<String, Empleado> item:empresa.getPlantilla().entrySet())
+		ArrayList<Empleado>plantilla=new ArrayList<Empleado>(empresa.getPlantilla().values());
+		Collections.sort(plantilla,new OficinaComparator());
+		for(Empleado empleado:plantilla)
 		{
-			String dni= item.getKey();
-			Empleado empleado=item.getValue();
 			System.out.println(empleado);
 		}
 	}
@@ -797,7 +856,7 @@ public class MetodosConcretos {
 		Empleado _empleadoaux;
 		do
 		{
-			String _dni=interfazusuario.PideDniValidad();
+			String _dni=interfazusuario.PideDniValidad("DNI empleado: ");
 			 _empleadoaux=empresa.BuscaEmpleado(_dni);
 			/*creo un objeto empleadoaux para poder sacarle el codigo de su oficina y asi
 			 * poder compararlo con el codigo de la oficina del objeto alquiler*/
@@ -862,9 +921,10 @@ public class MetodosConcretos {
 		public static Alquiler RealizaAlquiler(Empresa empresa)
 		{
 			Alquiler alquiler=null;
-			String _codalquiler="";
-			String codalquileraux=_codalquiler;
+			String _codalquiler;
 			boolean valido;
+			Empleado _empleado=null;
+			String _dni;
 			/*Creamos dos arraylist, para poder trabajar con ellos, uno sera de los vehiculos que tenemos disponibles,
 			 * y el otro sera para los que tenemos alquilados.
 			 * Para poder tener actualizada la lista de vehiculos disponibles lo que hago es hacer un bucle dentro de otro
@@ -881,6 +941,7 @@ public class MetodosConcretos {
 			}
 			do
 			{
+				valido=true;
 				 _codalquiler=interfazusuario.PideCadenaValidada(10, "Introduzca el codigo del alquiler: ");
 				ArrayList<Alquiler>alquileres=new ArrayList<Alquiler>(empresa.getHistorialalquileres().values());
 				//Este bucle es para buscar si hay una tarjeta igual
@@ -888,21 +949,26 @@ public class MetodosConcretos {
 				{
 					if(alquileres.get(i).getCodalquiler().equals(_codalquiler))
 					{
-						codalquileraux=alquileres.get(i).getCodalquiler();
+						;
+						System.out.println("Codigo ya existente.");
+						valido=false;
 					}
 				}
-				if (codalquileraux.equals(_codalquiler))
+					
+			}while(!valido);
+			do
+			{
+				_dni=interfazusuario.PideDniValidad("DNI empleado: ");
+				if(empresa.BuscaEmpleado(_dni)!=null)
 				{
-					valido=true;
-					System.out.println("Codigo ya existente.");
+					_empleado=empresa.BuscaEmpleado(_dni);
 				}
 				else
 				{
-					valido=false;
-				}	
-			}while(valido);
-			String _dni=interfazusuario.PideDniValidad();
-			Empleado _empleado=empresa.BuscaEmpleado(_dni);
+					System.out.println("DNI del empleado no valido.");
+				}
+			}
+			while(empresa.BuscaEmpleado(_dni)==null);
 			Vehiculo vehiculo;
 			ArrayList<String>opciones=new ArrayList<String>();
 			int opcion;

@@ -3,6 +3,7 @@ package clasesinstanciables;
 import java.io.Serializable;
 import java.util.Objects;
 
+import comparadores.NombreComparator;
 import excepciones.DniNoValidoException;
 import excepciones.LongitudNoValidaException;
 import mismetodosgenerales.*;
@@ -18,6 +19,7 @@ public abstract class Persona implements Comparable<Persona>, Serializable{
 	private int longinomb=35;
 	private int longiap1=35;
 	private int longiap2=35;
+	public static final NombreComparator nc = new NombreComparator ();
 	
 	//CONSTRUCTORES
 	/**

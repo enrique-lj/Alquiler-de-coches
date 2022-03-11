@@ -57,21 +57,21 @@ public class Furgoneta extends Combustion implements Serializable {
 	 */
 	public String toString()
 	{
-		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+capacidad+"m3 - Carnet("+carnetrequerido.getTipo()+")";
+		return   getMatricula()+" - "+getNbastidor()+" - "+getMarca()+" - "+getModelo()+" - "+getColor()+" - "+getKms()+"kms - "+capacidad+"m3 - Carnet("+carnetrequerido.getTipo()+") - Oficina:"+getUbicacion().getCodigoofi();
 	}
 	
 	
 	@Override
-	public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto)
+	public double CalculaImporte(int diasalquilado)
 	{
 		double preciofinal=0;
 		double preciobase=70;
 		//se calcula el recargo que se le tiene que hacer segun la categoria
-		double importerecargo=(recargo*preciobase)/100;
+		double importerecargo=(getCategoria().getRecargoalquileres()*preciobase)/100;
 		//se le suma el recargo al precio base
 		double preciotrasrecargo=importerecargo+preciobase;
 		//se le suma el recargo de oficina de aeropuerto en caaso de que lo fuese
-		if (ofiaeropuerto==true)
+		if (getUbicacion().isOfiaeropuerto()==true)
 		{
 			double importe=(10*preciotrasrecargo)/100;
 			double preciototal=importe+preciotrasrecargo;

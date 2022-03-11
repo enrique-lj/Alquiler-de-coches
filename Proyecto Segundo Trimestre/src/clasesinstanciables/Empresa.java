@@ -310,9 +310,9 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosCategoria para introducir los datos
 	 * en un objeto de tipo categoria y éste introducirlo en el TreeMap de listacategorias.
 	 */
-	public void AñadeCategoria() 
+	public void AñadeCategoria(Empresa empresa) 
 	{
-		Categoria cat=MetodosConcretos.PideDatosCategoria();
+		Categoria cat=MetodosConcretos.PideDatosCategoria(empresa);
 		listacategorias.put(cat.getCodcategoria(), cat);
 	}
 	/**
@@ -322,9 +322,9 @@ public class Empresa implements Serializable {
 	 * @param tipo
 	 * @param descripcion
 	 */
-	public void AñadeCarnet() 
+	public void AñadeCarnet(Empresa empresa) 
 	{
-		Carnet carnet=MetodosConcretos.PideDatosCarnet();
+		Carnet carnet=MetodosConcretos.PideDatosCarnet(empresa);
 		tiposdecarnet.put(carnet.getTipo(), carnet);
 	}
 	/**
@@ -384,9 +384,9 @@ public class Empresa implements Serializable {
 	 * Metodo que se encarga de llamar al metodo PideDatosOficina para introducirlos datos
 	 * en un objeto de tipo oficina y éste introducirlo en el TreeMap de listaoficinas.
 	 */
-	public void AñadeOficina() 
+	public void AñadeOficina(Empresa empresa) 
 	{
-		Oficina o=MetodosConcretos.PideDatosOficina();
+		Oficina o=MetodosConcretos.PideDatosOficina(empresa);
 		listaoficinas.put(o.getCodigoofi(), o);
 	}
 	/**

@@ -3,6 +3,7 @@ import java.util.GregorianCalendar;
 import mismetodosgenerales.*;
 import java.util.Objects;
 
+import comparadores.MarcaComparator;
 import excepciones.LongitudNoValidaException;
 import excepciones.ValorNoValidoException;
 
@@ -27,6 +28,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 	private int longimodelo=35;
 	private int longicolor=20;
 	private int longikms=2000000;
+	public static final MarcaComparator mc= new MarcaComparator();
 	
 	//CONSTRUCTORES
 	/**Constructor con todos los parametros
@@ -132,7 +134,7 @@ public abstract class Vehiculo implements Comparable<Vehiculo>, Serializable {
 		return matricula+" - "+nbastidor+" - "+marca+" - "+" - "+modelo+" - "+color+" - "+kms+"kms - ";
 	}
 	
-	abstract public double CalculaImporte(int diasalquilado,int recargo,boolean ofiaeropuerto);
+	abstract public double CalculaImporte(int diasalquilado);
 	//GETTERS Y SETTERS
 	
 	/**

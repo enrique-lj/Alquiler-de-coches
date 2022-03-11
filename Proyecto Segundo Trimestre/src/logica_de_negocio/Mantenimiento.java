@@ -14,8 +14,9 @@ public class Mantenimiento {
 	 * devuelve un nulo(no existe es oficina), te lleva a la opcion de añadir oficina. Si no devuelve un nulo, te pregunta si quieres 
 	 * modificar o borrar, si se escoge modificar te lleva al metodo modificar oficina y si se escoge borrar, al metodo borrar oficina.
 	 * @param empresa
+	 * @throws LongitudNoValidaException 
 	 */
-	public static void MantenimientoOficinas(Empresa empresa)
+	public static void MantenimientoOficinas(Empresa empresa) throws LongitudNoValidaException
 	{
 		do
 		{
@@ -33,12 +34,9 @@ public class Mantenimiento {
 				{
 					do
 					{
-						try {
+						
 							empresa.ModificarOficina(opc);
-						} catch (LongitudNoValidaException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();//cambiar el trycatch
-						}
+						
 					}
 					while (interfazusuario.MenuSioNo("¿Desea modificar otra cosa?")==1);
 				}
@@ -58,7 +56,7 @@ public class Mantenimiento {
 			{
 				do
 				{
-					empresa.AñadeOficina();			
+					empresa.AñadeOficina(empresa);			
 				}
 				while (interfazusuario.MenuSioNo("¿Desea añadir otra oficina?")==1);
 			}
@@ -71,15 +69,16 @@ public class Mantenimiento {
 	 * devuelve un nulo(no existe el empleado), te lleva a la opcion de añadir empleado. Si no devuelve un nulo, te pregunta si quieres 
 	 * modificar o borrar, si se escoge modificar te lleva al metodo modificar empleado y si se escoge borrar, al metodo borrar empleado.
 	 * @param empresa
+	 * @throws LongitudNoValidaException 
 	 */
-	public static void MantenimientoEmpleados(Empresa empresa)
+	public static void MantenimientoEmpleados(Empresa empresa) throws LongitudNoValidaException
 	{
 		do
 		{
 			ArrayList<String>opciones=new ArrayList<String>();
 			int opcion;
 			String opc;
-			opc=interfazusuario.PideDniValidad();
+			opc=interfazusuario.PideDniValidad("Introduzca un DNI a buscar: ");
 			if(empresa.BuscaEmpleado(opc)!=null)
 			{
 				opciones.clear();
@@ -90,12 +89,9 @@ public class Mantenimiento {
 				{
 					do
 					{
-						try {
+						
 							empresa.ModificarEmpleado(opc);
-						} catch (LongitudNoValidaException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}			
+									
 					}
 					while (interfazusuario.MenuSioNo("¿Desea modificar otra cosa?")==1);
 				}
@@ -128,8 +124,9 @@ public class Mantenimiento {
 	 * devuelve un nulo(no existe esa categoria), te lleva a la opcion de añadir categoria. Si no devuelve un nulo, te pregunta si quieres 
 	 * modificar o borrar, si se escoge modificar te lleva al metodo modificar categoria y si se escoge borrar, al metodo borrar categoria.
 	 * @param empresa
+	 * @throws LongitudNoValidaException 
 	 */
-	public static void MantenimientoCategorias(Empresa empresa)
+	public static void MantenimientoCategorias(Empresa empresa) throws LongitudNoValidaException
 	{
 		do
 		{
@@ -147,12 +144,9 @@ public class Mantenimiento {
 				{
 					do
 					{
-						try {
+						
 							empresa.ModificarCategoria(opc);
-						} catch (LongitudNoValidaException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();//cambiar el trycatch
-						}		
+								
 					}
 					while (interfazusuario.MenuSioNo("¿Desea modificar otra cosa?")==1);
 				}
@@ -172,7 +166,7 @@ public class Mantenimiento {
 			{
 				do
 				{
-					empresa.AñadeCategoria();			
+					empresa.AñadeCategoria(empresa);			
 				}
 				while (interfazusuario.MenuSioNo("¿Desea añadir otra categoria?")==1);
 			}
@@ -224,7 +218,7 @@ public class Mantenimiento {
 			{
 				do
 				{
-					empresa.AñadeCarnet();	
+					empresa.AñadeCarnet(empresa);	
 				}
 				while (interfazusuario.MenuSioNo("¿Desea añadir otro carnet?")==1);
 			}
@@ -237,8 +231,9 @@ public class Mantenimiento {
 	 * devuelve un nulo(no existe ese vehiculo), te lleva a la opcion de añadir vehiculo. Si no devuelve un nulo, te pregunta si quieres 
 	 * modificar o borrar, si se escoge modificar te lleva al metodo modificar vehiculo y si se escoge borrar, al metodo borrar vehiculo.
 	 * @param empresa
+	 * @throws ValorNoValidoException 
 	 */
-	public static void MantenimientoVehiculos(Empresa empresa)
+	public static void MantenimientoVehiculos(Empresa empresa)throws LongitudNoValidaException, ValorNoValidoException
 	{
 		ArrayList<String>opciones=new ArrayList<String>();
 		int opcion;
@@ -256,12 +251,9 @@ public class Mantenimiento {
 				{
 					do
 					{
-						try {
+						
 							empresa.ModificarVehiculo(opc);
-						} catch (LongitudNoValidaException | ValorNoValidoException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}		
+							
 					}
 					while (interfazusuario.MenuSioNo("¿Desea modificar otra cosa?")==1);
 				}
@@ -279,33 +271,31 @@ public class Mantenimiento {
 			}
 			else
 			{
-				opciones.clear();
-				opciones.add("MOTO");
-				opciones.add("COCHE ELECTRICO");
-				opciones.add("COCHE COMBUSTIÓN");
-				opciones.add("FURGONETA");
-				opcion=interfazusuario.MenuInt("¿QUE TIPO DE VEHICULO ES?", opciones, 1, 4);
-				switch (opcion)
-				{
-				case 1:
-					empresa.AñadeMoto(empresa);
-					break;
-				case 2:
-					empresa.AñadeCocheElec(empresa);
-					break;
-				case 3:
-					empresa.AñadeCocheComb(empresa);
-					break;
-				case 4:
-					empresa.AñadeFurgoneta(empresa);
-					break;
-				}
-				/*
 				do
 				{
-					empresa.AñadeVehiculo(empresa);	
+					opciones.clear();
+					opciones.add("MOTO");
+					opciones.add("COCHE ELECTRICO");
+					opciones.add("COCHE COMBUSTIÓN");
+					opciones.add("FURGONETA");
+					opcion=interfazusuario.MenuInt("¿QUE TIPO DE VEHICULO ES?", opciones, 1, 4);
+					switch (opcion)
+					{
+					case 1:
+						empresa.AñadeMoto(empresa);
+						break;
+					case 2:
+						empresa.AñadeCocheElec(empresa);
+						break;
+					case 3:
+						empresa.AñadeCocheComb(empresa);
+						break;
+					case 4:
+						empresa.AñadeFurgoneta(empresa);
+						break;
+					}	
 				}
-				while (interfazusuario.MenuSioNo("¿Desea añadir otro vehiculo?")==1);*/
+				while(interfazusuario.MenuSioNo("¿Desea añadir otro vehiculo?")==1);	
 			}
 			
 		}
