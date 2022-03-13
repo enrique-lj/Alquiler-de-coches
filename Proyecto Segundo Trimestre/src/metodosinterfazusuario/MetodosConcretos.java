@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 import java.util.Map.Entry;
 public class MetodosConcretos {
+
 	/**
 	 * Metodo que se encarga de pedir los datos de un cliente y crear un objeto de tipo
 	 * cliente con esos datos.
@@ -768,6 +769,27 @@ public class MetodosConcretos {
 			System.out.println(cliente);
 		}
 	}
+	
+	public static void MostrarAalquileresPendienteDePago(Empresa empresa)
+	{
+		ArrayList<Alquiler>alquileres=new ArrayList<Alquiler>(empresa.getHistorialalquileres().values());
+		ArrayList<Alquiler>alquilerespendientes=new ArrayList<Alquiler>();
+		//con este bucle añado a la lista de pendientes, los que no tengan fecha de devoucion, es decir, los
+		// que aun esten pendientes de devolver.
+		for (int i=0;i<alquileres.size();i++)
+		{
+			if(alquileres.get(i).getFdevolucion()==null)
+			{
+				alquilerespendientes.add(alquileres.get(i));
+			}
+		}
+		//con este bucle los muestro
+		for (Alquiler alquiler:alquilerespendientes)
+		{
+			System.out.println(alquiler);
+		}
+	}
+	
 	/**
 	 * Metodo que se encarga de bucar los vehiculos por categoria, recorre el arraylist de vehiculos disponibles
 	 * comparando los codigos de las categorias de los vehiculos, con un codigo de categoria que le pasamos como
@@ -925,6 +947,11 @@ public class MetodosConcretos {
 			boolean valido;
 			Empleado _empleado=null;
 			String _dni;
+			int opcion;
+			String codigoofi;
+			String codigocat;
+			Vehiculo vehiculo;
+			ArrayList<String>opciones=new ArrayList<String>();
 			/*Creamos dos arraylist, para poder trabajar con ellos, uno sera de los vehiculos que tenemos disponibles,
 			 * y el otro sera para los que tenemos alquilados.
 			 * Para poder tener actualizada la lista de vehiculos disponibles lo que hago es hacer un bucle dentro de otro
@@ -932,6 +959,7 @@ public class MetodosConcretos {
 			 * que le pasa el treemap), lo que hace el bucle es buscar lo vehiculos alquilados y quitarselos a los disponibles.*/
 			ArrayList<Vehiculo>vehiculosdisponibles=new ArrayList<Vehiculo>(empresa.getListavehiculos().values());
 			ArrayList<Vehiculo>vehiculosalquilados=new ArrayList<Vehiculo>(empresa.getVehiculosalquilados().values());
+			
 			for (int i=0;i<vehiculosalquilados.size();i++)
 			{
 				for (int j=0;j<vehiculosdisponibles.size();j++)
@@ -939,6 +967,8 @@ public class MetodosConcretos {
 					vehiculosdisponibles.remove(vehiculosalquilados.get(i));
 				}
 			}
+			
+			//comprobamos que el codigo del alquiler no exista ya en nuestra lista de alquileres
 			do
 			{
 				valido=true;
@@ -956,6 +986,7 @@ public class MetodosConcretos {
 				}
 					
 			}while(!valido);
+			//pedimos el dni y miramos si hay alguien el la plantilla con ese DNI
 			do
 			{
 				_dni=interfazusuario.PideDniValidad("DNI empleado: ");
@@ -969,11 +1000,7 @@ public class MetodosConcretos {
 				}
 			}
 			while(empresa.BuscaEmpleado(_dni)==null);
-			Vehiculo vehiculo;
-			ArrayList<String>opciones=new ArrayList<String>();
-			int opcion;
-			String codigoofi;
-			String codigocat;
+			
 			opciones.add("OFICINA");
 			opciones.add("CATEGORIA");
 			opcion=interfazusuario.MenuInt("¿COMO QUIERE BUSCAR EL VEHICULO?", opciones, 1, 2);
@@ -987,6 +1014,7 @@ public class MetodosConcretos {
 				codigocat=interfazusuario.PideCadenaValidada(8, "Introduzca el codigo de la categoria: ");
 				vehiculo=MetodosConcretos.BuscaVehiculoPorCategoria(empresa, codigocat, vehiculosdisponibles);
 			}
+			
 			empresa.AñadeVehiculoAlquilado(vehiculo);//AQUI AÑADIMOS EL VEHICULO A LA LISTA DE VEHICULOS ALQUILADOS
 			//HAY QUE CREAR UNA LISTA DE STOCK DISPONIBLE Y CAMBIARLA POR LAS LISTAS DE ABAJO (BUSCA VEHICULO POR
 			//OFICINA Y CATEGORIA) Y TAMBIEN HAY QUE BORRAR EL VEHICULO K SE ALQUILA DE ESA LISTA CUANDO SE HACE UN ALQUILER

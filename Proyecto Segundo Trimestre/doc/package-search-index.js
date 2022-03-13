@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"clasesinstanciables"},{"l":"comparadores"},{"l":"excepciones"},{"l":"logica_de_negocio"},{"l":"menus"},{"l":"metodosinterfazusuario"},{"l":"principal"}];updateSearchResults();
